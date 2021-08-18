@@ -1,115 +1,115 @@
-@extends("layouts.admin")
+@extends("layouts.employee")
 @section("pageTitle", "Koala Web Libraries")
 @section('styleChart')
 <link href="{{asset("assets/admin/libs/c3/c3.min.css")}}" id="bootstrap-style" rel="stylesheet" type="text/css"/>
 @endsection
 @section("content")
-{{--<div class="row ">--}}
-{{--    <div class="col-md-6 col-xl-3">--}}
-{{--       <div class="card">--}}
-{{--           <div class="card-body">--}}
-{{--            <div class="mini-stat">--}}
-{{--                <span class="mini-stat-icon bg-primary float-left"><i class="fas fa-user-graduate"></i></span>--}}
-{{--                <div class="mini-stat-info text-right">--}}
-{{--                    <span class="counter text-primary">100</span>--}}
-{{--                    Total Students--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--           </div>--}}
-{{--       </div>--}}
-{{--    </div>--}}
-{{--    <div class="col-md-6 col-xl-3">--}}
-{{--       <div class="card">--}}
-{{--           <div class="card-body">--}}
-{{--            <div class="mini-stat clearfix">--}}
-{{--                <span class="mini-stat-icon bg-success float-left"><i class="fas fa-user-edit"></i></span>--}}
-{{--                <div class="mini-stat-info text-right">--}}
-{{--                    <span class="counter text-success">200</span>--}}
-{{--                    Total Instructors--}}
-{{--                </div>--}}
-{{--                <div class="clearfix"></div>--}}
-{{--            </div>--}}
-{{--           </div>--}}
-{{--       </div>--}}
-{{--    </div>--}}
-{{--    <div class="col-md-6 col-xl-3">--}}
-{{--       <div class="card">--}}
-{{--           <div class="card-body">--}}
-{{--            <div class="mini-stat clearfix">--}}
-{{--                <span class="mini-stat-icon bg-warning float-left"><i class="fas fa-lightbulb"></i></span>--}}
-{{--                <div class="mini-stat-info text-right">--}}
-{{--                    <span class="counter text-warning">30</span>--}}
-{{--                    Total Courses--}}
-{{--                </div>--}}
-{{--                <div class="clearfix"></div>--}}
-{{--            </div>--}}
-{{--           </div>--}}
-{{--       </div>--}}
-{{--    </div>--}}
-{{--    <div class="col-md-6 col-xl-3">--}}
-{{--       <div class="card">--}}
-{{--           <div class="card-body">--}}
-{{--            <div class="mini-stat clearfix">--}}
-{{--                <span class="mini-stat-icon bg-pink float-left"><i class="mdi mdi-currency-usd"></i></span>--}}
-{{--                <div class="mini-stat-info text-right">--}}
-{{--                    <span class="counter text-pink">20000</span>--}}
-{{--                    Total Paymentt--}}
-{{--                </div>--}}
-{{--                <div class="clearfix"></div>--}}
-{{--            </div>--}}
-{{--           </div>--}}
-{{--       </div>--}}
-{{--    </div>--}}
-{{--</div>--}}
-{{--<div class="row">--}}
-{{--    <div class="col-lg-6">--}}
-{{--        <div class="card">--}}
-{{--            <div class="card-body">--}}
+<div class="row ">
+    <div class="col-md-6 col-xl-3">
+       <div class="card">
+           <div class="card-body">
+            <div class="mini-stat">
+                <span class="mini-stat-icon bg-primary float-left"><i class="fas fa-user-graduate"></i></span>
+                <div class="mini-stat-info text-right">
+                    <span class="counter text-primary">100</span>
+                    Total Students
+                </div>
+            </div>
+           </div>
+       </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+       <div class="card">
+           <div class="card-body">
+            <div class="mini-stat clearfix">
+                <span class="mini-stat-icon bg-success float-left"><i class="fas fa-user-edit"></i></span>
+                <div class="mini-stat-info text-right">
+                    <span class="counter text-success">200</span>
+                    Total Instructors
+                </div>
+                <div class="clearfix"></div>
+            </div>
+           </div>
+       </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+       <div class="card">
+           <div class="card-body">
+            <div class="mini-stat clearfix">
+                <span class="mini-stat-icon bg-warning float-left"><i class="fas fa-lightbulb"></i></span>
+                <div class="mini-stat-info text-right">
+                    <span class="counter text-warning">30</span>
+                    Total Courses
+                </div>
+                <div class="clearfix"></div>
+            </div>
+           </div>
+       </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+       <div class="card">
+           <div class="card-body">
+            <div class="mini-stat clearfix">
+                <span class="mini-stat-icon bg-pink float-left"><i class="mdi mdi-currency-usd"></i></span>
+                <div class="mini-stat-info text-right">
+                    <span class="counter text-pink">20000</span>
+                    Total Paymentt
+                </div>
+                <div class="clearfix"></div>
+            </div>
+           </div>
+       </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
 
-{{--                <h4 class="card-title mb-4">Bayment Meathod for eavry Course</h4>--}}
+                <h4 class="card-title mb-4">Bayment Meathod for eavry Course</h4>
 
-{{--                <div id="chart" dir="ltr"></div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div> <!-- end col -->--}}
-{{--    <div class="col-lg-6">--}}
-{{--        <div class="card">--}}
-{{--            <div class="card-body">--}}
+                <div id="chart" dir="ltr"></div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
 
-{{--                <h4 class="card-title mb-4">Attendance for eavry Course</h4>--}}
+                <h4 class="card-title mb-4">Attendance for eavry Course</h4>
 
-{{--                <div id="chart1" dir="ltr"></div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div> <!-- end col -->--}}
-{{--    --}}
-{{--</div> <!-- end row -->--}}
+                <div id="chart1" dir="ltr"></div>
+            </div>
+        </div>
+    </div> <!-- end col -->
 
-{{--<div class="row">--}}
-{{--    <div class="col-lg-6">--}}
-{{--        <div class="card">--}}
-{{--            <div class="card-body">--}}
+</div> <!-- end row -->
 
-{{--                <h4 class="card-title mb-4">Payment Meathods</h4>--}}
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
 
-{{--                <div id="donut-chart" dir="ltr"></div>--}}
+                <h4 class="card-title mb-4">Payment Meathods</h4>
 
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div> <!-- end col -->--}}
+                <div id="donut-chart" dir="ltr"></div>
 
-{{--    <div class="col-lg-6">--}}
-{{--        <div class="card">--}}
-{{--            <div class="card-body">--}}
+            </div>
+        </div>
+    </div> <!-- end col -->
 
-{{--                <h4 class="card-title mb-4">Attendance</h4>--}}
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
 
-{{--                <div id="pie-chart" dir="ltr"></div>--}}
+                <h4 class="card-title mb-4">Attendance</h4>
 
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div> <!-- end col -->--}}
-{{--</div> <!-- end row -->--}}
+                <div id="pie-chart" dir="ltr"></div>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
 
 
 @endsection

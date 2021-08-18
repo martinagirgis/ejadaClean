@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>fix it </title>
+    <title>اسم الموقع</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @yield("styleChart")
     <!-- App favicon -->
@@ -50,16 +50,17 @@
                 </button>
 
                 <div class="d-none d-sm-block ml-2">
-                    <h4 class="page-title">اسم الموقع </h4>
+                    <h4 class="page-title">اسم الموقع</h4>
                 </div>
             </div>
 
             <div class="d-flex">
 
                 <div class="dropdown d-inline-block">
-                    <button type="button" class="btn  btn-danger" id="page-header-user-dropdown"
+                    <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        تسجيل خروج
+                        <img class="rounded-circle header-profile-user" src="{{asset('assets/admin/assets/images/users/avatar-1.jpg')}}"
+                             alt="Header Avatar">
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <!-- item-->
@@ -85,7 +86,7 @@
     <div class="vertical-menu">
 
         <div data-simplebar class="h-100">
-                @include('admin.sections')
+                @include('generalManager.sections')
         </div>
     </div>
     <!-- Left Sidebar End -->

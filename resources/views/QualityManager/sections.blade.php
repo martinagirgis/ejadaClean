@@ -6,14 +6,18 @@
 
         <li>
             <a href="javascript: void(0);" class="has-arrow">
-                <i class="fas fa-school"></i>
-                <span> الشركات </span>
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>   تقارير الفروع  </span>
             </a>
             <ul class="sub-menu" aria-expanded="false">
-                <li><a href="{{route("companies.index")}}">عرض الكل</a></li>
-                <li><a href="{{route("companies.create")}}">اضافة شركة جديد</a></li>
+                <li><a href="{{route("teams.index")}}">الفرع الاول </a></li>
+                <li><a href="{{route("teams.create")}}">الفرع الاول</a></li>
+                <li><a href="{{route("teams.create")}}">الفرع الاول </a></li>
             </ul>
         </li>
+
+
+       
 
     </ul>
 </div>
