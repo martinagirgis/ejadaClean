@@ -57,10 +57,9 @@
             <div class="d-flex">
 
                 <div class="dropdown d-inline-block">
-                    <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                    <button type="button" class="btn  btn-danger" id="page-header-user-dropdown"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="rounded-circle header-profile-user" src="{{asset('assets/admin/assets/images/users/avatar-1.jpg')}}"
-                             alt="Header Avatar">
+                        تسجيل خروج
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <!-- item-->

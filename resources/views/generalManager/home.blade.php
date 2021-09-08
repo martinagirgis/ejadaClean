@@ -63,6 +63,7 @@
 
 
 </div>
+{{--
 <div class="row">
     <div class="col-lg-6">
         <div class="card">
@@ -113,7 +114,7 @@
     </div> <!-- end col -->
 </div> <!-- end row -->
 
-
+--}}
 @endsection
 
 @section("script")

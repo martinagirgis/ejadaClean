@@ -85,16 +85,16 @@ class TasksController extends Controller
 
     public function sendTaskNow($id)
     {
-        return view('employee.tasks.now');
+        return view('employee.Tasks.now');
     }
 
     public function taskWaiting($id)
     {
-        return view('employee.tasks.waiting');
+        return view('employee.Tasks.waiting');
     }
 
     public function tasDone($id)
     {
-        return view('employee.tasks.done');
+        return view('employee.Tasks.done');
     }
 }

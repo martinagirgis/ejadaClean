@@ -22,7 +22,7 @@
             </a>
             <ul class="sub-menu" aria-expanded="false">
                 <li><a href="{{route("branches.index")}}">عرض الكل</a></li>
-                <li><a href="{{route("branches.create")}}">اضافة مرفق جديد</a></li>
+                <li><a href="{{route("branches.create")}}">اضافة فرع جديد</a></li>
             </ul>
         </li>
 

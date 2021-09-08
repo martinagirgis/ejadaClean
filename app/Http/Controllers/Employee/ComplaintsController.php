@@ -14,7 +14,7 @@ class ComplaintsController extends Controller
      */
     public function index()
     {
-        return view('employee.complaints.index');
+        return view('employee.Complaints.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class ComplaintsController extends Controller
      */
     public function create()
     {
-        return view('employee.complaints.create');
+        return view('employee.Complaints.create');
     }
 
     /**
@@ -57,7 +57,7 @@ class ComplaintsController extends Controller
      */
     public function edit($id)
     {
-        return view('employee.complaints.edit');
+        return view('employee.Complaints.edit');
     }
 
     /**
