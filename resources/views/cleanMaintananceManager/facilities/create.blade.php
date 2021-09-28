@@ -24,7 +24,7 @@
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">اسم المرفق</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_ar">
+                            <input class="form-control" type="text" id="example-text-input" name="name">
                         </div>
                     </div>
                     

@@ -15,16 +15,7 @@
             </ul>
         </li>
 
-        <li>
-            <a href="javascript: void(0);" class="has-arrow">
-                <i class="fas fa-exclamation-triangle"></i>
-                <span>فرع جديد</span>
-            </a>
-            <ul class="sub-menu" aria-expanded="false">
-                <li><a href="{{route("branches.index")}}">عرض الكل</a></li>
-                <li><a href="{{route("branches.create")}}">اضافة فرع جديد</a></li>
-            </ul>
-        </li>
+       
 
 
         <li>
@@ -38,6 +29,17 @@
             </ul>
         </li>
 
+        <li>
+            <a href="javascript: void(0);" class="has-arrow">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>فرع جديد</span>
+            </a>
+            <ul class="sub-menu" aria-expanded="false">
+                <li><a href="{{route("branches.index")}}">عرض الكل</a></li>
+                <li><a href="{{route("branches.create")}}">اضافة فرع جديد</a></li>
+            </ul>
+        </li>
+        
         <li>
             <a href="javascript: void(0);" class="has-arrow">
                 <i class="fas fa-exclamation-triangle"></i>

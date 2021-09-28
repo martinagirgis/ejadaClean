@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers\CleanMaintananceManager;
 
-use App\Http\Controllers\Controller;
+use App\models\Supervisor;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\models\CleanMantananceManager;
 
 class SupervisorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:clean_mantanance_manager');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,8 @@ class SupervisorController extends Controller
      */
     public function index()
     {
-        return view('cleanMaintananceManager.supervisors.index');
+        $supervisors = Supervisor::where('clean_mantanance_manager_id', Auth::guard('clean_mantanance_manager')->id())->get();
+        return view('cleanMaintananceManager.supervisors.index', compact('supervisors'));
     }
 
     /**
@@ -35,7 +45,23 @@ class SupervisorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'email' => ['required', 'email', 'max:255', 'unique:supervisors'],
+        ];
+
+        $this->validate($request,$rules);
+        Supervisor::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'real_password' => $request->password,
+            'phone' => $request->phone,
+            'job_num' => $request->job_num,
+            'id_num' => $request->id_num,
+            'area' => $request->area,
+            'clean_mantanance_manager_id' => Auth::guard('clean_mantanance_manager')->id(),
+        ]);
+        return redirect()->route('supervisors.index')->with('success', 'تم الاضافة بنجاح');
     }
 
     /**
@@ -46,7 +72,8 @@ class SupervisorController extends Controller
      */
     public function show($id)
     {
-        //
+        $supervisor = Supervisor::find($id);
+        return view('cleanMaintananceManager.supervisors.show', compact('supervisor'));
     }
 
     /**
@@ -57,7 +84,8 @@ class SupervisorController extends Controller
      */
     public function edit($id)
     {
-        return view('cleanMaintananceManager.supervisors.edit');
+        $supervisor = Supervisor::find($id);
+        return view('cleanMaintananceManager.supervisors.edit', compact('supervisor'));
     }
 
     /**
@@ -69,7 +97,25 @@ class SupervisorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $supervisor = Supervisor::find($id);
+
+        $rules = [
+            'email' => ['required', 'email', 'max:255', 'unique:supervisors,email,' . $supervisor->id ],
+        ];
+
+        $this->validate($request,$rules);
+
+        $supervisor->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'real_password' => $request->password,
+            'phone' => $request->phone,
+            'job_num' => $request->job_num,
+            'id_num' => $request->id_num,
+            'area' => $request->area,
+        ]);
+        return redirect()->route('supervisors.index')->with('success', 'تم التعديل بنجاح');
     }
 
     /**
@@ -80,6 +126,8 @@ class SupervisorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $old = Supervisor::find($id);
+        $old->delete();
+        return redirect()->route('supervisors.index')->with('success', 'تم الحذف بنجاح');
     }
 }

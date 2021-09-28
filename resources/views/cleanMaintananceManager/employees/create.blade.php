@@ -1,5 +1,4 @@
 @extends("layouts.cleanMaintananceManager")
-@section("pageTitle", "المشرفين")
 @section("content")
 <div class="row">
     <div class="col-12">
@@ -24,60 +23,78 @@
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">الاسم</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_ar">
+                            <input class="form-control" type="text" id="example-text-input" name="name" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">البريد الالكتروني</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_en">
+                            <input class="form-control" type="text" id="example-text-input" name="email" required>
+                            @error('email')
+                                <span class="" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
+                   
 
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">كلمة المرور</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_ku">
+                            <input class="form-control" minlength="8" type="text" id="example-text-input" name="password" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-sm-2 col-form-label"> تاريخ الميلاد</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="date" id="example-text-input" name="date" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">رقم الهاتف</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_ku">
+                            <input class="form-control" type="text" id="example-text-input" name="phone" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="example-text-input" class="col-sm-2 col-form-label">تاريخ الميلاد</label>
+                        <label for="example-text-input" class="col-sm-2 col-form-label">رقم الهوية</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="date" id="example-text-input" name="Title_ku">
+                            <input class="form-control" type="text" id="example-text-input" name="id_num" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">نوع العمل</label>
+                        <label for="example-text-input" class="col-sm-2 col-form-label">الرقم الوظيفي </label>
                         <div class="col-sm-10">
-                            <select class="form-control" name="city_id">
-                                {{-- @foreach($cities as $city) --}}
-                                    <option value="maintance">عامل صيانه</option>
-                                    <option value="clean">عامل نظافة</option>
-                                {{-- @endforeach --}}
+                            <input class="form-control" type="text" id="example-text-input" name="job_num" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-sm-2 col-form-label">النوع</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="type">
+                                <option value="0">عامل صيانة</option>
+                                <option value="1">عامل نظافة</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">المشرف التابع له</label>
+                        <label class="col-sm-2 col-form-label">المشرف</label>
                         <div class="col-sm-10">
-                            <select class="form-control" name="city_id">
-                                    <option value="maintance">المشرف الاول</option>
-                                    <option value="clean">المشرف الثاني</option>
+                            <select class="form-control" name="supervisor_id">
+                                @foreach($supervisors as $supervisor)
+                                    <option value="{{$supervisor->id}}">{{$supervisor->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
-
                     <div class="form-group row">
                         <div class="col-12 text-center">
                             <button type="submit" class="btn btn-dark w-25">اضافة</button>

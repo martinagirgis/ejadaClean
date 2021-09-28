@@ -19,51 +19,77 @@
                 @endif
                 <h5 class="mb-5 mt-3">تعديل المشرف </h5>
 
-                <form method="post" action="{{route('generalManagerSupervisors.update',['generalManagerSupervisor'=>1])}}">
+                <form method="post" action="{{route('generalManagerSupervisors.update',['generalManagerSupervisor'=>$supervisor->id])}}">
                     @csrf
                     @method('PUT')
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">الاسم</label>
                         <div class="col-sm-10">
-                            <input class="form-control" value="اختبار اختبار" name="Title_ar" type="text" id="example-text-input">
+                            <input class="form-control" value="{{$supervisor->name}}" name="name" type="text" id="example-text-input">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">البريد الالكتروني</label>
                         <div class="col-sm-10">
-                            <input class="form-control" value="test@gmail.com" name="Title_en" type="text" id="example-text-input">
+                            <input class="form-control" value="{{$supervisor->email}}" name="email" type="text" id="example-text-input">
+                            @error('email')
+                                <span class="" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">كلمة المرور</label>
                         <div class="col-sm-10">
-                            <input class="form-control" value="" name="Title_ku" type="text" id="example-text-input">
+                            <input class="form-control" value="{{$supervisor->real_password}}" name="password" type="text" id="example-text-input">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">رقم الهاتف</label>
                         <div class="col-sm-10">
-                            <input class="form-control" value="0120333000222" name="Title_ku" type="text" id="example-text-input">
+                            <input class="form-control" value="{{$supervisor->phone}}" name="phone" type="text" id="example-text-input">
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label"> مدير الصيانة و النظافة التابع له</label>
+                        <label for="example-text-input" class="col-sm-2 col-form-label">رقم الهوية </label>
                         <div class="col-sm-10">
-                            <select class="form-control" name="city_id">
-                                    <option value="maintance">الاسم الاول</option>
-                                    <option value="clean">الاسم الثاني</option>
+                            <input class="form-control" value="{{$supervisor->id_num}}" name="id_num" type="text" id="example-text-input">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-sm-2 col-form-label">الرقم الوظيفي </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" value="{{$supervisor->job_num}}" name="job_num" type="text" id="example-text-input">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-sm-2 col-form-label">المنطقة</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" value="{{$supervisor->area}}" name="area" type="text" id="example-text-input">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">مدير الصيانة و النظافة</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="clean_mantanance_manager_id">
+                                @foreach($branches as $branch)
+                                    @for($i=0; $i < count($branch->cleanManager); $i++)
+                                        @if($branch->cleanManager[$i]->id == $supervisor->clean_mantanance_manager_id)
+                                            <option value="{{$branch->cleanManager[$i]->id}}" selected>{{$branch->cleanManager[$i]->name}}</option>
+                                        @else
+                                            <option value="{{$branch->cleanManager[$i]->id}}">{{$branch->cleanManager[$i]->name}}</option>
+                                        @endif
+                                    @endfor
+                                @endforeach
                             </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="example-text-input" class="col-sm-2 col-form-label">المنطقه المسؤول عنها</label>
-                        <div class="col-sm-10">
-                            <input class="form-control" value="المنطقة أ" name="Title_ku" type="text" id="example-text-input">
                         </div>
                     </div>
 

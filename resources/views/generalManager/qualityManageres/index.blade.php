@@ -1,5 +1,4 @@
 @extends("layouts.generalManager")
-@section("pageTitle", "Ejada")
 @section("style")
     <link href="{{asset("assets/admin/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css")}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset("assets/admin/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css")}}" rel="stylesheet" type="text/css"/>
@@ -32,16 +31,18 @@
                         <th>الاسم</th>
                         <th>البريد الالكتروني</th>
                         <th>الهاتف</th>
+                        <th>كلمة المرور </th>
                         <th>التحكم</th>
                     </tr>
                     </thead>
 
                     <tbody>
-                        {{-- @foreach($cities as $city) --}}
+                        @foreach($qualityManagers as $qualityManager)
                         <tr>
-                        <th>اختبار اختبار</th>
-                        <th>test@gmail.com</th>
-                        <th>0120333000222</th>
+                            <th>{{$qualityManager->name}}</th>
+                            <th>{{$qualityManager->email}}</th>
+                            <th>{{$qualityManager->phone}}</th>
+                            <th>{{$qualityManager->real_password}}</th>
                         <th> 
                             <center>
                                 <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
@@ -51,8 +52,9 @@
                                             التحكم
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                            <a class="btn btn-dark col-sm-12"  href="{{route('qualityManagers.edit',['qualityManager'=>1])}}">تعديل</a>
-                                            <form method="post" action="{{route('qualityManagers.destroy',['qualityManager'=>1])}}">
+                                            <a class="btn btn-dark col-sm-12"  href="{{route('qualityManagers.show',['qualityManager'=>$qualityManager->id])}}">عرض</a><br>
+                                            <a class="btn btn-dark col-sm-12"  href="{{route('qualityManagers.edit',['qualityManager'=>$qualityManager->id])}}">تعديل</a>
+                                            <form method="post" action="{{route('qualityManagers.destroy',['qualityManager'=>$qualityManager->id])}}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-dark col-sm-12" >حذف</button>
@@ -63,7 +65,7 @@
                             </center>
                         </th>
                         </tr>
-                        {{-- @endforeach --}}
+                        @endforeach
 
                         
                     </tbody>

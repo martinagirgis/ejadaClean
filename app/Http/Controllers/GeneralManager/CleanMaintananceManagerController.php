@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers\GeneralManager;
 
-use App\Http\Controllers\Controller;
+use App\models\Branch;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\models\CleanMantananceManager;
 
 class CleanMaintananceManagerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:company_general_manager');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,8 @@ class CleanMaintananceManagerController extends Controller
      */
     public function index()
     {
-        return view('generalManager.cleanMaintananceManagers.index');
+        $branches = Branch::where('company_id', Auth::guard('company_general_manager')->id())->get();
+        return view('generalManager.cleanMaintananceManagers.index', compact('branches'));
     }
 
     /**
@@ -24,7 +34,8 @@ class CleanMaintananceManagerController extends Controller
      */
     public function create()
     {
-        return view('generalManager.cleanMaintananceManagers.create');
+        $branches = Branch::where('company_id', Auth::guard('company_general_manager')->id())->get();
+        return view('generalManager.cleanMaintananceManagers.create', compact('branches'));
     }
 
     /**
@@ -35,7 +46,22 @@ class CleanMaintananceManagerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'email' => ['required', 'email', 'max:255', 'unique:clean_mantanance_managers'],
+        ];
+
+        $this->validate($request,$rules);
+        CleanMantananceManager::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'real_password' => $request->password,
+            'phone' => $request->phone,
+            'job_num' => $request->job_num,
+            'id_num' => $request->id_num,
+            'branch_id' => $request->branch_id,
+        ]);
+        return redirect()->route('cleanMaintananceManagers.index')->with('success', 'تم الاضافة بنجاح');
     }
 
     /**
@@ -46,7 +72,8 @@ class CleanMaintananceManagerController extends Controller
      */
     public function show($id)
     {
-        //
+        $cleanMantananceManager = CleanMantananceManager::find($id);
+        return view('generalManager.cleanMaintananceManagers.show', compact('cleanMantananceManager'));
     }
 
     /**
@@ -57,7 +84,9 @@ class CleanMaintananceManagerController extends Controller
      */
     public function edit($id)
     {
-        return view('generalManager.cleanMaintananceManagers.edit');
+        $cleanMantananceManager = CleanMantananceManager::find($id);
+        $branches = Branch::where('company_id', Auth::guard('company_general_manager')->id())->get();
+        return view('generalManager.cleanMaintananceManagers.edit', compact('cleanMantananceManager', 'branches'));
     }
 
     /**
@@ -69,7 +98,24 @@ class CleanMaintananceManagerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $cleanMantananceManager = CleanMantananceManager::find($id);
+
+        $rules = [
+            'email' => ['required', 'email', 'max:255', 'unique:clean_mantanance_managers,email,' . $cleanMantananceManager->id ],
+        ];
+
+        $this->validate($request,$rules);
+
+        $cleanMantananceManager->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'real_password' => $request->password,
+            'phone' => $request->phone,
+            'job_num' => $request->job_num,
+            'id_num' => $request->id_num,
+        ]);
+        return redirect()->route('cleanMaintananceManagers.index')->with('success', 'تم التعديل بنجاح');
     }
 
     /**
@@ -80,6 +126,8 @@ class CleanMaintananceManagerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $old = CleanMantananceManager::find($id);
+        $old->delete();
+        return redirect()->route('cleanMaintananceManagers.index')->with('success', 'تم الحذف بنجاح');
     }
 }

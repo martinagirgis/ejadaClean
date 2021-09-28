@@ -24,21 +24,28 @@
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">الاسم</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_ar">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="example-text-input" class="col-sm-2 col-form-label">البريد الالكتروني</label>
-                        <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_en">
+                            <input class="form-control" type="text" id="example-text-input" name="name">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">رقم الهاتف</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_ku">
+                            <input class="form-control" type="text" id="example-text-input" name="phone">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-sm-2 col-form-label">رقم الهوية</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" id="example-text-input" name="id_num" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-sm-2 col-form-label">الرقم الوظيفي </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" id="example-text-input" name="job_num" required>
                         </div>
                     </div>
                     

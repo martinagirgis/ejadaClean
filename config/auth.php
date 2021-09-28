@@ -41,6 +41,36 @@ return [
             'provider' => 'users',
         ],
 
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+
+        'company_general_manager' => [
+            'driver' => 'session',
+            'provider' => 'company_general_managers',
+        ],
+
+        'quality_manager' => [
+            'driver' => 'session',
+            'provider' => 'quality_managers',
+        ],
+
+        'clean_mantanance_manager' => [
+            'driver' => 'session',
+            'provider' => 'clean_mantanance_managers',
+        ],
+
+        'supervisor' => [
+            'driver' => 'session',
+            'provider' => 'supervisors',
+        ],
+
+        'employee' => [
+            'driver' => 'session',
+            'provider' => 'employees',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -71,6 +101,36 @@ return [
             'model' => App\User::class,
         ],
 
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\models\Admin::class,
+        ],
+
+        'company_general_managers' => [
+            'driver' => 'eloquent',
+            'model' => App\models\CompanyGeneralManager::class,
+        ],
+
+        'quality_managers' => [
+            'driver' => 'eloquent',
+            'model' => App\models\QualityManager::class,
+        ],
+
+        'clean_mantanance_managers' => [
+            'driver' => 'eloquent',
+            'model' => App\models\CleanMantananceManager::class,
+        ],
+
+        'supervisors' => [
+            'driver' => 'eloquent',
+            'model' => App\models\Supervisor::class,
+        ],
+
+        'employees' => [
+            'driver' => 'eloquent',
+            'model' => App\models\Employee::class,
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -95,6 +155,48 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'company_general_managers' => [
+            'provider' => 'company_general_managers',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'quality_managers' => [
+            'provider' => 'quality_managers',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'clean_mantanance_managers' => [
+            'provider' => 'clean_mantanance_managers',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'supervisors' => [
+            'provider' => 'supervisors',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'employees' => [
+            'provider' => 'employees',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

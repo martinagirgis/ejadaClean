@@ -1,5 +1,4 @@
 @extends("layouts.generalManager")
-@section("pageTitle", "المشرفين")
 @section("content")
 <div class="row">
     <div class="col-12">
@@ -24,7 +23,7 @@
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">الاسم</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_ar">
+                            <input class="form-control" type="text" id="example-text-input" name="name" required>
                         </div>
                     </div>
 

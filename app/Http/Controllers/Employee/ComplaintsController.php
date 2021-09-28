@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class ComplaintsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:employee');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +40,19 @@ class ComplaintsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'file' => 'required',
+        ]);
+ 
+       $title = time().'.'.request()->file->getClientOriginalExtension();
+  
+       $request->file->move(public_path('posts'), $title);
+ 
+    //    $storeFile = new Post;
+    //    $storeFile->title = $title;
+    //    $storeFile->save();
+  
+        return response()->json(['success'=>'File Uploaded Successfully']);
     }
 
     /**

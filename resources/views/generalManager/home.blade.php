@@ -11,7 +11,7 @@
             <div class="mini-stat">
                 <span class="mini-stat-icon bg-primary float-left"><i class="fas fa-code-branch"></i></span>
                 <div class="mini-stat-info text-right">
-                    <span class="counter text-primary">100</span>
+                    <span class="counter text-primary">{{$branchNum}}</span>
                    عدد الفروع
                 </div>
             </div>
@@ -24,7 +24,7 @@
             <div class="mini-stat clearfix">
                 <span class="mini-stat-icon bg-success float-left"><i class="fa fa-user"></i></span>
                 <div class="mini-stat-info text-right">
-                    <span class="counter text-success">200</span>
+                    <span class="counter text-success">{{$employeeNum}}</span>
                     عدد العمال
                 </div>
                 <div class="clearfix"></div>
@@ -38,7 +38,7 @@
             <div class="mini-stat clearfix">
                 <span class="mini-stat-icon bg-warning float-left"><i class="fas fa-user"></i></span>
                 <div class="mini-stat-info text-right">
-                    <span class="counter text-warning">30</span>
+                    <span class="counter text-warning">{{$supervisorNum}}</span>
                     عدد المشرفين
                 </div>
                 <div class="clearfix"></div>
@@ -52,7 +52,7 @@
             <div class="mini-stat clearfix">
                 <span class="mini-stat-icon bg-pink float-left"><i class="fas fa-user"></i></span>
                 <div class="mini-stat-info text-right">
-                    <span class="counter text-pink">20000</span>
+                    <span class="counter text-pink">{{$managerNum}}</span>
                     عدد المديرين
                 </div>
                 <div class="clearfix"></div>

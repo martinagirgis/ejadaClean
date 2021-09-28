@@ -17,43 +17,36 @@
                     <strong>{{ $message }}</strong>
                 </div>
                 @endif
-                <h5 class="mb-5 mt-3">تعديل المشرف </h5>
+                <h5 class="mb-5 mt-3">تعديل الشركة الراعية </h5>
 
-                <form method="post" action="{{route('supervisors.update',['supervisor'=>1])}}">
+                <form method="post" action="{{route('sponsoringCompanies.update',['sponsoringCompany'=>$company->id])}}">
                     @csrf
                     @method('PUT')
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">الاسم</label>
                         <div class="col-sm-10">
-                            <input class="form-control" value="اختبار اختبار" name="Title_ar" type="text" id="example-text-input">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="example-text-input" class="col-sm-2 col-form-label">البريد الالكتروني</label>
-                        <div class="col-sm-10">
-                            <input class="form-control" value="test@gmail.com" name="Title_en" type="text" id="example-text-input">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="example-text-input" class="col-sm-2 col-form-label">كلمة المرور</label>
-                        <div class="col-sm-10">
-                            <input class="form-control" value="" name="Title_ku" type="text" id="example-text-input">
+                            <input class="form-control" type="text" id="example-text-input" value="{{$company->name}}" name="name">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">رقم الهاتف</label>
                         <div class="col-sm-10">
-                            <input class="form-control" value="0120333000222" name="Title_ku" type="text" id="example-text-input">
+                            <input class="form-control" type="text" id="example-text-input" value="{{$company->phone}}" name="phone">
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="example-text-input" class="col-sm-2 col-form-label">المنطقه المسؤول عنها</label>
+                        <label for="example-text-input" class="col-sm-2 col-form-label">رقم الهوية</label>
                         <div class="col-sm-10">
-                            <input class="form-control" value="المنطقة أ" name="Title_ku" type="text" id="example-text-input">
+                            <input class="form-control" type="text" id="example-text-input" value="{{$company->id_num}}" name="id_num" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-sm-2 col-form-label">الرقم الوظيفي </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" id="example-text-input" value="{{$company->job_num}}" name="job_num" required>
                         </div>
                     </div>
 

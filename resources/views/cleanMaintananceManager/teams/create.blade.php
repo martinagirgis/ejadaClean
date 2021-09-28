@@ -24,28 +24,28 @@
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">اسم الفريق</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_ar">
+                            <input class="form-control" type="text" id="example-text-input" name="name">
                         </div>
                     </div>
 
-                    <div class="form-group row">
+                    <div class="form-group row"> 
                         <label for="example-text-input" class="col-sm-2 col-form-label">المسؤول عن الفريق</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_en">
+                            <input class="form-control" type="text" id="example-text-input" name="leader_name">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">رقم هاتف المسؤول عن الفريق</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_ku">
+                            <input class="form-control" type="text" id="example-text-input" name="leader_phone">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">عدد اعضاء الفريق</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="number" onfocusout="loadMember()" id="memberNum" name="Title_ku">
+                            <input class="form-control" type="number" onfocusout="loadMember()" id="memberNum" name="memberNum">
                         </div>
                     </div>
 
@@ -76,14 +76,14 @@
                 <div class='form-group col-6'>
                     <label for="example-text-input" class="col-sm-2 col-form-label">الاسم</label>
                     <div class="col-sm-10">
-                        <input class="form-control" type="text" id="example-text-input" name="Title_en">
+                        <input class="form-control" type="text" id="example-text-input" name="name`+index+`">
                     </div>
                 </div>
 
                 <div class="form-group col-6">
                     <label for="example-text-input" class="col-sm-2 col-form-label">رقم الهاتف</label>
                     <div class="col-sm-10">
-                        <input class="form-control" type="text" id="example-text-input" name="Title_ku">
+                        <input class="form-control" type="text" id="example-text-input" name="phone`+index+`">
                     </div>
                 </div>
             </div>`;

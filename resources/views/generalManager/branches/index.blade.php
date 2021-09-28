@@ -36,10 +36,13 @@
                     </thead>
 
                     <tbody>
-                        {{-- @foreach($cities as $city) --}}
+                        @foreach($branches as $branch)
                         <tr>
-                        <th>اختبار اختبار</th>
-                        <th>الاسم الاول</th>
+                        <th>{{$branch->name}}</th>
+                        <th></th>
+                        @for($i=0; $i < count($branch->cleanManager); $i++)
+                            <th>{{$branch->cleanManager[$i]->name}}</th>
+                        @endfor
                         <th> 
                             <center>
                                 <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
@@ -49,8 +52,8 @@
                                             التحكم
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                            <a class="btn btn-dark col-sm-12"  href="{{route('branches.edit',['branch'=>1])}}">تعديل</a>
-                                            <form method="post" action="{{route('branches.destroy',['branch'=>1])}}">
+                                            <a class="btn btn-dark col-sm-12"  href="{{route('branches.edit',['branch'=>$branch->id])}}">تعديل</a>
+                                            <form method="post" action="{{route('branches.destroy',['branch'=>$branch->id])}}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-dark col-sm-12" >حذف</button>
@@ -61,7 +64,7 @@
                             </center>
                         </th>
                         </tr>
-                        {{-- @endforeach --}}
+                        @endforeach
 
                         
                     </tbody>

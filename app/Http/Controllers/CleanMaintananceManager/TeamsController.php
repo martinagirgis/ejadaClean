@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers\CleanMaintananceManager;
 
-use App\Http\Controllers\Controller;
+use App\models\Team;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\models\TeamMember;
+use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Stmt\For_;
 
 class TeamsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:clean_mantanance_manager');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,8 @@ class TeamsController extends Controller
      */
     public function index()
     {
-        return view('cleanMaintananceManager.teams.index');
+        $teams = Team::where('clean_mantanance_manager_id', Auth::guard('clean_mantanance_manager')->id())->get();
+        return view('cleanMaintananceManager.teams.index', compact('teams'));
     }
 
     /**
@@ -35,7 +45,22 @@ class TeamsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $teamId = Team::insertGetId([
+            'name' => $request->name,
+            'leader_name' => $request->leader_name,
+            'leader_phone' => $request->leader_phone,
+            'clean_mantanance_manager_id' => Auth::guard('clean_mantanance_manager')->id(),
+        ]);
+
+        for ($i=0; $i < intval($request->memberNum); $i++) { 
+            TeamMember::create([
+                'name' => $request['name'.$i],
+                'phone' => $request['phone'.$i],
+                'team_id' => $teamId,
+            ]);
+        }
+
+        return redirect()->route('teams.index')->with('success', 'تم الاضافة بنجاح');
     }
 
     /**
@@ -57,7 +82,8 @@ class TeamsController extends Controller
      */
     public function edit($id)
     {
-        return view('cleanMaintananceManager.teams.edit');
+        $team = Team::find($id);
+        return view('cleanMaintananceManager.teams.edit', compact('team'));
     }
 
     /**
@@ -69,7 +95,21 @@ class TeamsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $team = Team::find($id);
+
+        $team->update([
+            'name' => $request->name,
+            'leader_name' => $request->leader_name,
+            'leader_phone' => $request->leader_phone,
+        ]);
+        for ($i=0; $i < count($team->members); $i++) { 
+            $member = TeamMember::find($team->members[$i]->id);
+            $member->update([
+                'name' => $request['name'.$member->id],
+                'phone' => $request['phone'.$member->id],
+            ]);
+        }
+        return redirect()->route('teams.index')->with('success', 'تم التعديل بنجاح');
     }
 
     /**
@@ -80,6 +120,15 @@ class TeamsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $old = Team::find($id);
+        $old->delete();
+        return redirect()->route('teams.index')->with('success', 'تم الحذف بنجاح');
+    }
+
+    public function deleteMember($id)
+    {
+        $old = TeamMember::find($id);
+        $old->delete();
+        return redirect()->back()->with('success', 'تم الحذف بنجاح');
     }
 }

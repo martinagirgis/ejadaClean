@@ -5,26 +5,26 @@
 @endsection
 @section("content")
 <div class="row ">
-    <div class="col-md-6 col-xl-2">
+    <div class="col-md-6 col-xl-4">
         <div class="card">
             <div class="card-body">
                 <div class="mini-stat">
                     <span class="mini-stat-icon bg-primary float-left"><i class="fas fa-code-branch"></i></span>
                     <div class="mini-stat-info text-right">
-                        <span class="counter text-primary">100</span>
+                        <span class="counter text-primary">{{$facilityNum}}</span>
                         عدد المرافق
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-xl-2">
+    <div class="col-md-6 col-xl-4">
         <div class="card">
             <div class="card-body">
                 <div class="mini-stat clearfix">
                     <span class="mini-stat-icon bg-success float-left"><i class="fa fa-user"></i></span>
                     <div class="mini-stat-info text-right">
-                        <span class="counter text-success">200</span>
+                        <span class="counter text-success">{{$sponsorintCompanyNum}}</span>
                          الشركات الراعية
                     </div>
                     <div class="clearfix"></div>
@@ -32,13 +32,13 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-xl-2">
+    <div class="col-md-6 col-xl-4">
         <div class="card">
             <div class="card-body">
                 <div class="mini-stat clearfix">
                     <span class="mini-stat-icon bg-warning float-left"><i class="fas fa-user"></i></span>
                     <div class="mini-stat-info text-right">
-                        <span class="counter text-warning">30</span>
+                        <span class="counter text-warning">{{$teamNum}}</span>
                           الفريق الخاص
                     </div>
                     <div class="clearfix"></div>
@@ -46,13 +46,13 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-xl-2">
+    <div class="col-md-6 col-xl-4">
         <div class="card">
             <div class="card-body">
                 <div class="mini-stat clearfix">
                     <span class="mini-stat-icon bg-pink float-left"><i class="fas fa-user"></i></span>
                     <div class="mini-stat-info text-right">
-                        <span class="counter text-pink">20000</span>
+                        <span class="counter text-pink">{{$supervisorNum}}</span>
                         عدد المشرفين
                     </div>
                     <div class="clearfix"></div>
@@ -60,28 +60,28 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-xl-2">
+    <div class="col-md-6 col-xl-4">
         <div class="card">
             <div class="card-body">
                 <div class="mini-stat clearfix">
                     <span class="mini-stat-icon bg-pink float-left"><i class="fas fa-user"></i></span>
                     <div class="mini-stat-info text-right">
-                        <span class="counter text-pink">20000</span>
-                        عدد العمال
+                        <span class="counter text-pink">{{$employeeCleanNum}}</span>
+                        عدد العمال النظافة
                     </div>
                     <div class="clearfix"></div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-xl-2">
+    <div class="col-md-6 col-xl-4">
         <div class="card">
             <div class="card-body">
                 <div class="mini-stat clearfix">
                     <span class="mini-stat-icon bg-pink float-left"><i class="fas fa-user"></i></span>
                     <div class="mini-stat-info text-right">
-                        <span class="counter text-pink">20000</span>
-                        عدد العمال
+                        <span class="counter text-pink">{{$employeeMaintanaceNum}}</span>
+                        عدد العمال الصيانة
                     </div>
                     <div class="clearfix"></div>
                 </div>

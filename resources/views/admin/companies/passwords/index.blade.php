@@ -29,20 +29,20 @@
 
                         <thead>
                         <tr>
-                            <th>كلمة المرور الحاليه</th>
+                            <th>كلمة المرور الجديدة</th>
                             <th>كلمة المرور القديمة</th>
                             <th>تاريخ التجديد</th>
                         </tr>
                         </thead>
 
                         <tbody>
-                        {{-- @foreach($cities as $city) --}}
+                        @foreach($companyPasswords as $companyPassword)
                         <tr>
-                            <th>اختبار اختبار</th>
-                            <th>test@gmail.com</th>
-                            <th>0120333000222</th>
+                            <th>{{$companyPassword->new_real_password}}</th>
+                            <th>{{$companyPassword->old_real_password}}</th>
+                            <th>{{$companyPassword->date}}</th>
                         </tr>
-                        {{-- @endforeach --}}
+                        @endforeach
 
 
                         </tbody>

@@ -1,6 +1,18 @@
 @extends("layouts.employee")
 @section("pageTitle", "المشرفين")
+@section('style')
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<style>
+    .progress { position:relative; width:100%; }
+    .bar { background-color: #00ff00; width:0%; height:20px; }
+    .percent { position:absolute; display:inline-block; left:50%; color: #040608;}
+</style>
+@endsection
 @section("content")
+
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -18,8 +30,21 @@
                         </div>
                     @endif
                     <h5 class="mb-5 mt-3">اضافة شكوى جديد</h5>
-
-                    <form method="post" action="{{route('complaints.store')}}" enctype="multipart/form-data">
+                    <div class="wrapper">
+                        <form method="POST" action="{{route('complaints.store')}}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <input name="file" type="file" class="form-control"><br/>
+                                <div class="progress">
+                                    <div class="bar"></div >
+                                    <div class="percent">0%</div >
+                                </div>
+                                <br>
+                                <input type="submit"  value="Submit" class="btn btn-primary">
+                            </div>
+                        </form>
+                        
+                    {{-- <form method="post" action="{{route('complaints.store')}}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
                             <label for="example-text-input" class="col-sm-2 col-form-label">عنوان الشكوى</label>
@@ -42,15 +67,49 @@
                                 <label class="custom-file-label" for="customFileLangHTML" data-browse="ارفاق ملف"></label>
                             </div>
                         </div>
+                        <div class="uimage-div my-5 text-center">
+                            <canvas id= "canv1" style="width:50%;height:150px;border: none"></canvas><br>
+                            <label class="select-image-label" for="finput" >ارفاق ملف</label><br>
+                            <input class="select-image-input" type="file" dir="rtl" multiple="false" name="profile_image" accept="image/*,video/*" id=finput onchange="uploadimg()">
+                          </div>
 
                         <div class="form-group row">
                             <div class="col-12 text-center">
                                 <button type="submit" class="btn btn-dark w-25">اضافة</button>
                             </div>
                         </div>
-                    </form>
+                    </form> --}}
                 </div>
             </div>
         </div> <!-- end col -->
     </div> <!-- end row -->
+
+    <script>
+var SITEURL = "{{route('complaints.store')}}";
+$(function() {
+    $(document).ready(function()
+    {
+        var bar = $('.bar');
+        var percent = $('.percent');
+          $('form').ajaxForm({
+            beforeSend: function() {
+                var percentVal = '0%';
+                bar.width(percentVal)
+                percent.html(percentVal);
+            },
+            uploadProgress: function(event, position, total, percentComplete) {
+                var percentVal = percentComplete + '%';
+                bar.width(percentVal)
+                percent.html(percentVal);
+            },
+            complete: function(xhr) {
+                alert('File Has Been Uploaded Successfully');
+                window.location.href = SITEURL +"/"+"ajax-file-upload-progress-bar";
+            }
+          });
+    }); 
+ });
+
+
+    </script>
 @endsection

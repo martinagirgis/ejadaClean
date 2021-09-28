@@ -40,83 +40,110 @@
                     </thead>
 
                     <tbody>
-                        {{-- @foreach($cities as $city) --}}
-                        <tr>
-                        <th>اختبار اختبار</th>
-                        <th>test@gmail.com</th>
-                        <th>0120333000222</th>
-                        <th>المدير الاول</th>
-                        <th>المنطقة أ</th>
-                        <th>
-                            <a class="btn btn-dark col-sm-12" data-toggle="modal" data-target="#supervisor1">عرض</a><br>
-                        </th>
-                        <th> 
-                            <center>
-                                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-    
-                                    <div class="btn-group" role="group">
-                                        <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            التحكم
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                            <a class="btn btn-dark col-sm-12"  href="{{route('generalManagerSupervisors.edit',['generalManagerSupervisor'=>1])}}">تعديل</a>
-                                            <form method="post" action="{{route('generalManagerSupervisors.destroy',['generalManagerSupervisor'=>1])}}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-dark col-sm-12" >حذف</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </center>
-                        </th>
-                        </tr>
-                        {{-- @endforeach --}}
+                        @foreach($branches as $branch)
+                            @for($i=0; $i < count($branch->cleanManager); $i++)
+                            @for($y = 0; $y < count($branch->cleanManager[$i]->supervisor); $y++)
+                                <tr>
+                                    <th>{{$branch->cleanManager[$i]->supervisor[$y]->name}}</th>
+                                    <th>{{$branch->cleanManager[$i]->supervisor[$y]->email}}</th>
+                                    <th>{{$branch->cleanManager[$i]->supervisor[$y]->phone}}</th>
+                                    <th>{{$branch->cleanManager[$i]->name}}</th>
+                                    <th>{{$branch->cleanManager[$i]->supervisor[$y]->area}}</th>
+                                    <th>
+                                        <a class="btn btn-dark col-sm-12" data-toggle="modal" data-target="#supervisor{{$branch->cleanManager[$i]->supervisor[$y]->id}}">عرض</a><br>
+                                    </th>
+                                    <th> 
+                                        <center>
+                                            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                
+                                                <div class="btn-group" role="group">
+                                                    <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        التحكم
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                        <a class="btn btn-dark col-sm-12"  href="{{route('generalManagerSupervisors.show',['generalManagerSupervisor'=>$branch->cleanManager[$i]->supervisor[$y]->id])}}">عرض</a><br>
+                                                        <a class="btn btn-dark col-sm-12"  href="{{route('generalManagerSupervisors.edit',['generalManagerSupervisor'=>$branch->cleanManager[$i]->supervisor[$y]->id])}}">تعديل</a>
+                                                        <form method="post" action="{{route('generalManagerSupervisors.destroy',['generalManagerSupervisor'=>$branch->cleanManager[$i]->supervisor[$y]->id])}}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-dark col-sm-12" >حذف</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </center>
+                                    </th>
+                                </tr>
+                            @endfor
+                            @endfor
+                        @endforeach
 
                         
                     </tbody>
                 </table>
-{{-- @foreach($specializations as $specializationn) --}}
-<div class="modal fade" id="supervisor1" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="supervisorLabel1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header backgroundColor text-white" style="border:none">
-                <h5 class="modal-title" style="color: black" id="supervisorLabel1">الموظفين</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body backgroundColorSec p-5">
-                <table class="table">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">الاسم</th>
-                        <th scope="col">رقم الهاتف</th>
-                        <th scope="col">نوع التوظيف</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>اختبار</td>
-                        <td>022222222</td>
-                        <td>صيانه</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>اختبار 2</td>
-                        <td>099999999</td>
-                        <td>نظافه</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        
-        </div>
-    </div>
-</div>
-{{-- @endforeach --}}
+                @foreach($branches as $branchh)
+                    @for($i=0; $i < count($branchh->cleanManager); $i++)
+                        @for($y = 0; $y < count($branchh->cleanManager[$i]->supervisor); $y++)
+                        @if(count($branchh->cleanManager[$i]->supervisor[$y]->employee) == 0)
+                        <div class="modal fade" id="supervisor{{$branchh->cleanManager[$i]->supervisor[$y]->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="supervisorLabel1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header backgroundColor text-white" style="border:none">
+                                        <h5 class="modal-title" style="color: black" id="supervisorLabel1">الموظفين</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body backgroundColorSec p-5">
+                                        لا يوجد موظفين
+                                    </div>
+                                
+                                </div>
+                            </div>
+                        </div>
+                        @else
+                        @for($z = 0; $z < count($branchh->cleanManager[$i]->supervisor[$y]->employee); $z++)
+                            
+                        <div class="modal fade" id="supervisor{{$branchh->cleanManager[$i]->supervisor[$y]->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="supervisorLabel1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header backgroundColor text-white" style="border:none">
+                                        <h5 class="modal-title" style="color: black" id="supervisorLabel1">الموظفين</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body backgroundColorSec p-5">
+                                        <table class="table">
+                                            <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">الاسم</th>
+                                                <th scope="col">رقم الهاتف</th>
+                                                <th scope="col">نوع التوظيف</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>{{$branch->cleanManager[$i]->supervisor[$y]->employee[$z]->name}}</td>
+                                                <td>{{$branch->cleanManager[$i]->supervisor[$y]->employee[$z]->phone}}</td>
+                                                @if($branch->cleanManager[$i]->supervisor[$y]->employee[$z]->type == '0')
+                                                    <td>عامل صيانة</td>
+                                                @else
+                                                    <td>عامل نظافة</td>
+                                                @endif
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                
+                                </div>
+                            </div>
+                        </div>
+                        @endfor
+                        @endif
+                        @endfor
+                    @endfor
+                @endforeach
             </div>
         </div>
     </div> <!-- end col --> 

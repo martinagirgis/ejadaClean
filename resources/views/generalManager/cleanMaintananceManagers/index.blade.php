@@ -32,18 +32,19 @@
                         <th>الاسم</th>
                         <th>البريد الالكتروني</th>
                         <th>الهاتف</th>
-                        <th>المحطة</th>
+                        <th>المحطة </th>
                         <th>التحكم</th>
                     </tr>
                     </thead>
 
                     <tbody>
-                        {{-- @foreach($cities as $city) --}}
+                        @foreach($branches as $branch)
+                            @for($i=0; $i < count($branch->cleanManager); $i++)
                         <tr>
-                        <th>اختبار اختبار</th>
-                        <th>test@gmail.com</th>
-                        <th>0120333000222</th>
-                        <th>المحطة الاولى</th>
+                        <th>{{$branch->cleanManager[$i]->name}}</th>
+                        <th>{{$branch->cleanManager[$i]->email}}</th>
+                        <th>{{$branch->cleanManager[$i]->phone}}</th>
+                        <th>{{$branch->name}}</th>
                         <th> 
                             <center>
                                 <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
@@ -53,8 +54,9 @@
                                             التحكم
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                            <a class="btn btn-dark col-sm-12"  href="{{route('cleanMaintananceManagers.edit',['cleanMaintananceManager'=>1])}}">تعديل</a>
-                                            <form method="post" action="{{route('cleanMaintananceManagers.destroy',['cleanMaintananceManager'=>1])}}">
+                                            <a class="btn btn-dark col-sm-12"  href="{{route('cleanMaintananceManagers.show',['cleanMaintananceManager'=>$branch->cleanManager[$i]->id])}}">عرض</a><br>
+                                            <a class="btn btn-dark col-sm-12"  href="{{route('cleanMaintananceManagers.edit',['cleanMaintananceManager'=>$branch->cleanManager[$i]->id])}}">تعديل</a>
+                                            <form method="post" action="{{route('cleanMaintananceManagers.destroy',['cleanMaintananceManager'=>$branch->cleanManager[$i]->id])}}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-dark col-sm-12" >حذف</button>
@@ -65,7 +67,8 @@
                             </center>
                         </th>
                         </tr>
-                        {{-- @endforeach --}}
+                        @endfor
+                        @endforeach
 
                         
                     </tbody>

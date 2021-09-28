@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers\CleanMaintananceManager;
 
-use App\Http\Controllers\Controller;
+use App\models\Task;
 use Illuminate\Http\Request;
+use App\models\SponsorintCompany;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class SponsoringCompaniesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:clean_mantanance_manager');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +22,14 @@ class SponsoringCompaniesController extends Controller
      */
     public function index()
     {
-        return view('cleanMaintananceManager.sponsoringCompanies.index');
+        $companies = SponsorintCompany::where('clean_mantanance_manager_id', Auth::guard('clean_mantanance_manager')->id())->get();
+        return view('cleanMaintananceManager.sponsoringCompanies.index', compact('companies'));
+    }
+
+    public function allTasks($id)
+    {
+        $tasks = Task::where('support_id', $id)->where('support_type', 'company')->get();
+        return view('cleanMaintananceManager.sponsoringCompanies.tasks', compact('tasks'));
     }
 
     /**
@@ -35,7 +50,14 @@ class SponsoringCompaniesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        SponsorintCompany::create([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'job_num' => $request->job_num,
+            'id_num' => $request->id_num,
+            'clean_mantanance_manager_id' => Auth::guard('clean_mantanance_manager')->id(),
+        ]);
+        return redirect()->route('sponsoringCompanies.index')->with('success', 'تم الاضافة بنجاح');
     }
 
     /**
@@ -57,7 +79,8 @@ class SponsoringCompaniesController extends Controller
      */
     public function edit($id)
     {
-        return view('cleanMaintananceManager.sponsoringCompanies.edit');
+        $company = SponsorintCompany::find($id);
+        return view('cleanMaintananceManager.sponsoringCompanies.edit', compact('company'));
     }
 
     /**
@@ -69,7 +92,15 @@ class SponsoringCompaniesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $company = SponsorintCompany::find($id);
+
+        $company->update([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'job_num' => $request->job_num,
+            'id_num' => $request->id_num,
+        ]);
+        return redirect()->route('sponsoringCompanies.index')->with('success', 'تم التعديل بنجاح');
     }
 
     /**
@@ -80,6 +111,8 @@ class SponsoringCompaniesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $old = SponsorintCompany::find($id);
+        $old->delete();
+        return redirect()->route('sponsoringCompanies.index')->with('success', 'تم الحذف بنجاح');
     }
 }

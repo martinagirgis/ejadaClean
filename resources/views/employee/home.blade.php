@@ -1,207 +1,171 @@
 @extends("layouts.employee")
 @section("pageTitle", "Koala Web Libraries")
 @section('styleChart')
-<link href="{{asset("assets/admin/libs/c3/c3.min.css")}}" id="bootstrap-style" rel="stylesheet" type="text/css"/>
+<style>
+    html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+#calendar {
+  max-width: 900px;
+  margin: 40px auto;
+}
+.tooltipevent{
+    width:200px;/*
+    height:100px;*/
+    background:#ccc;
+    position:absolute;
+    z-index:10001;
+    transform:translate3d(-50%,-100%,0);
+    font-size: 0.8rem;
+    box-shadow: 1px 1px 3px 0px #888888;
+    line-height: 1rem;
+}
+.tooltipevent div{
+    padding:10px;
+}
+.tooltipevent div:first-child{
+    font-weight:bold;
+    color:White;
+    background-color:#888888;
+    border:solid 1px black;
+}
+.tooltipevent div:last-child{
+    background-color:whitesmoke;
+    position:relative;
+}
+.tooltipevent div:last-child::after, .tooltipevent div:last-child::before{
+    width:0;
+    height:0;
+    border:solid 5px transparent;/*
+    box-shadow: 1px 1px 2px 0px #888888;*/
+    border-bottom:0;
+    border-top-color:whitesmoke;
+    position: absolute;
+    display: block;
+    content: "";
+    bottom:-4px;
+    left:50%;
+    transform:translateX(-50%);
+}
+.tooltipevent div:last-child::before{
+    border-top-color:#888888;
+    bottom:-5px;
+}
+</style>
+{{-- <link href="{{asset("assets/admin/libs/fullcalendar/fullcalendar.min.css")}}" id="bootstrap-style" rel="stylesheet" type="text/css"/> --}}
 @endsection
 @section("content")
-<div class="row ">
-    <div class="col-md-6 col-xl-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="mini-stat">
-                    <span class="mini-stat-icon bg-primary float-left"><i class="fas fa-code-branch"></i></span>
-                    <div class="mini-stat-info text-right">
-                        <span class="counter text-primary">100</span>
-                        عدد العمال
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-xl-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="mini-stat clearfix">
-                    <span class="mini-stat-icon bg-success float-left"><i class="fa fa-user"></i></span>
-                    <div class="mini-stat-info text-right">
-                        <span class="counter text-success">200</span>
-                        عدد الشكاوي
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-xl-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="mini-stat clearfix">
-                    <span class="mini-stat-icon bg-warning float-left"><i class="fas fa-user"></i></span>
-                    <div class="mini-stat-info text-right">
-                        <span class="counter text-warning">30</span>
-                        عدد المهام
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-{{--
-<div class="row">
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
+<!-- Required js and css with url -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/rrule@2.6.3/dist/es5/rrule.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@fullcalendar/core@4.3.1/main.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@fullcalendar/daygrid@4.3.0/main.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@fullcalendar/timegrid@4.3.0/main.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@fullcalendar/interaction@4.3.0/main.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@fullcalendar/rrule@4.3.0/main.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
-                <h4 class="card-title mb-4">Bayment Meathod for eavry Course</h4>
-
-                <div id="chart" dir="ltr"></div>
-            </div>
-        </div>
-    </div> <!-- end col -->
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title mb-4">Attendance for eavry Course</h4>
-                <div id="chart1" dir="ltr"></div>
-            </div>
-        </div>
-    </div> <!-- end col -->
-
-</div> <!-- end row -->
-
-<div class="row">
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
-
-                <h4 class="card-title mb-4">Payment Meathods</h4>
-
-                <div id="donut-chart" dir="ltr"></div>
-
-            </div>
-        </div>
-    </div> <!-- end col -->
-
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
-
-                <h4 class="card-title mb-4">Attendance</h4>
-
-                <div id="pie-chart" dir="ltr"></div>
-
-            </div>
-        </div>
-    </div> <!-- end col -->
-</div> <!-- end row -->
---}}
-
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/@fullcalendar/core@4.3.1/main.min.css">
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/@fullcalendar/daygrid@4.3.0/main.min.css">
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/@fullcalendar/timegrid@4.3.0/main.min.css">
+<div id='calendar'></div>
 
 @endsection
 
 @section("script")
-<script src="{{asset("assets/admin/libs/d3/d3.min.js")}}"></script>
-<script src="{{asset("assets/admin/libs/c3/c3.min.js")}}"></script>
-{{-- <script src="{{asset("assets/admin/js/pages/c3-chart.init.js")}}"></script> --}}
-{{-- <script>
-    var yarab = [];
-    var ii = 0;
-    @foreach( $courses as $course)
-     yarab[ii] = "{{$course['name']}}" ;
-     ii++;
-    @endforeach
-    console.log(yarab);
-    !function(e){"use strict";
-function a(){}
+{{-- <script src="{{asset("assets/admin/libs/moment/min/moment.min.js")}}"></script>
+<script src="{{asset("assets/admin/libs/jquery-ui/jquery-ui.min.js")}}"></script>
+<script src="{{asset("assets/admin/libs/fullcalendar/fullcalendar.min.js")}}"></script> --}}
+{{-- <script src="{{asset("assets/admin/js/pages/calendar.init.js")}}"></script> --}}
+<script>
+    // const t = new Date().getDate() + (6 - new Date().getDay() - 1) - 7 ;
+    // const lastFriday = new Date();
+    // lastFriday.setDate(t);
+    // console.log(lastFriday);
 
-a.prototype.init=function()
-{
-    c3.generate({bindto:"#chart",
-    data:{
-        columns:[["Online Payment"{{$xx}}],["Trasfear Bank"{{$yy}}],["By Hand"{{$zz}}]],
-        type:"bar",
-        colors:{Desktop:"#5468da",Mobile:"#fb8c00",Tablet:"#3bc3e9"}},
+    <?php 
+    $z = date("Y-m-d", strtotime("last Saturday"));
+    $z = (date('W', strtotime($z)) == date('W')) ? (strtotime($z)-7*86400+7200) : strtotime($z);
+     date("Y-m-d", $z);
+    ?>
 
-    tooltip: {
-      contents: function (d, defaultTitleFormat, defaultValueFormat, color) {
-          var $$ = this, config = $$.config,
-              titleFormat = config.tooltip_format_title || defaultTitleFormat,
-              nameFormat = config.tooltip_format_name || function (name) { return name; },
-              valueFormat = config.tooltip_format_value || defaultValueFormat,
-              text, i, title, value, name, bgcolor;
-          for (i = 0; i < d.length; i++) {
-              var y =0;
-              if (! (d[i] && (d[i].value || d[i].value === 0))) { continue; }
+    document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
 
-              if (! text) {
-                  title = titleFormat ? titleFormat(d[i].x) : d[i].x;
-                  var list = document.getElementsByClassName("c3-axis")[0];
-                        list.getElementsByTagName("tspan")[title].innerHTML = yarab[title];
-                  text = "<table class='" + $$.CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>"  + yarab[title] + "</th></tr>" : "");
-              }
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    
+    //NOTE MUST HAVE REFERENCE rrule javascript and plugin 'rrule', not rrPlugin like docs
+    //if using scripts, not import/build method
+    defaultDate: new Date(),
+    plugins: ['interaction', 'dayGrid', 'timeGrid', 'rrule'],
+   timeZone: 'UTC',
+   defaultView: 'dayGridMonth',
+   header: {
+     left: 'prev,next today',
+     center: 'title',
+     right: 'dayGridMonth,timeGridWeek,timeGridDay'
+   },
+   editable: false,
+    // eventClick: function(arg) {
+    //     console.log(arg);
+    // //   location.href = "/task/"
+    // },
+    eventMouseEnter: function(info) {
+            var tis=info.el;
+            var popup=info.event.extendedProps.popup;
+            var tooltip = '<div class="tooltipevent" style="top:'+($(tis).offset().top-5)+'px;left:'+($(tis).offset().left+($(tis).width())/2)+'px"><div>' + popup.title + '</div><div>' + popup.description + '</div></div>';
+            var $tooltip = $(tooltip).appendTo('body');
+        },
+        eventMouseLeave: function(info) {           
+            $(info.el).css('z-index', 8);
+            $('.tooltipevent').remove();
+        },
+    events: [    
+        @foreach($tasks as $task)
+        { 
+            id:"{{$task->id}}",
+            title: '{{$task->title}}',
+            url: '/task/{{$task->id}}',
+            popup: {
+                title: '{{$task->state}}',
+                description: '{{$task->description}}',
+            }, 
+            backgroundColor: '#c1391c',
+            rrule: {        
+                dtstart: '{{date("Y-m-d H:i:s", strtotime("$task->date $task->time"))}}',
+                until: '2053-08-01T19:30:00',  
+            },          
+        },  
+        @endforeach  
+        @foreach($times as $timee)
+        {     
+        title: '{{$timee->facility->name}}',
+        // popup: {
+        //     title: '{{$timee->facility->name}}',
+        //     description: 'This is Daily the description',
+        // },         
+        backgroundColor: '#1cc1ab',
+        rrule: {        
+            freq: 'weekly',
+            byweekday: [ 'mo'],
+            // dtstart: `{{date('Y-m-d H:i:s', strtotime("date('Y-m-d', $z) $timee->time"))}}`,
+            // until: `{{date('Y-m-d H:i:s', strtotime("date('Y-m-d', strtotime('next friday')) $timee->time"))}}`,
+            },          
+        },   
+        @endforeach   
+          
+    ]
+   
+  });
+  
+  
+  calendar.render();
+});
+</script>
 
-              name = nameFormat(d[i].name);
-              value = valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index);
-              bgcolor = $$.levelColor ? $$.levelColor(d[i].value) : color(d[i].id);
-
-              text += "<tr class='" + $$.CLASS.tooltipName + "-" + d[i].id + "'>";
-              text += "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + name + "</td>";
-              text += "<td class='value'>" + value + "</td>";
-              text += "</tr>";
-              y++;
-          }
-          return text + "</table>";
-    }}}),
-    c3.generate({bindto:"#chart1",
-    data:{
-        columns:[["Attend"{{$aa}}],["Asbect"{{$bb}}]],
-        type:"bar",
-        colors:{Desktop:"#5468da",Mobile:"#fb8c00"}},
-
-    tooltip: {
-      contents: function (d, defaultTitleFormat, defaultValueFormat, color) {
-          var $$ = this, config = $$.config,
-              titleFormat = config.tooltip_format_title || defaultTitleFormat,
-              nameFormat = config.tooltip_format_name || function (name) { return name; },
-              valueFormat = config.tooltip_format_value || defaultValueFormat,
-              text, i, title, value, name, bgcolor;
-          for (i = 0; i < d.length; i++) {
-              var y =0;
-              if (! (d[i] && (d[i].value || d[i].value === 0))) { continue; }
-
-              if (! text) {
-                  title = titleFormat ? titleFormat(d[i].x) : d[i].x;
-                  var list = document.getElementsByClassName("c3-axis")[0];
-                        list.getElementsByTagName("tspan")[title].innerHTML = yarab[title];
-                  text = "<table class='" + $$.CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>"  + yarab[title] + "</th></tr>" : "");
-              }
-
-              name = nameFormat(d[i].name);
-              value = valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index);
-              bgcolor = $$.levelColor ? $$.levelColor(d[i].value) : color(d[i].id);
-
-              text += "<tr class='" + $$.CLASS.tooltipName + "-" + d[i].id + "'>";
-              text += "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + name + "</td>";
-              text += "<td class='value'>" + value + "</td>";
-              text += "</tr>";
-              y++;
-          }
-          return text + "</table>";
-    }}}),
-    c3.generate({bindto:"#donut-chart",data:{columns:[["Online Payment",{{$sumOnline}}],["Trasfear Bank",{{$sumBank}}],["By Hand",{{$sumHand}}]],type:"donut"},donut:{title:"Candidates",width:30,label:{show:!1}},color:{pattern:["#f06292","#6d60b0","#5468da","#009688"]}}),
-    c3.generate({bindto:"#pie-chart",data:{columns:[["Attend",{{$sumAttend}}],["Absent",{{$sumAbsent}}]],type:"pie"},color:{pattern:["#afb42b","#fb8c00","#8d6e63","#90a4ae"]},pie:{label:{show:!1}}})},
-    e.ChartC3=new a,e.ChartC3.Constructor=a
-}
-(window.jQuery),
-    function(){"use strict";window.jQuery.ChartC3.init()}();
-
-
-
-
-
-
-//     var list = document.getElementsByClassName("c3-axis")[0];
-// list.getElementsByTagName("tspan")[0].innerHTML = "Milk";
-</script> --}}
 @endsection

@@ -19,13 +19,13 @@
                 @endif
                 <h5 class="mb-5 mt-3">تعديل المحطة </h5>
 
-                <form method="post" action="{{route('branches.update',['branch'=>1])}}">
+                <form method="post" action="{{route('branches.update',['branch'=>$branch->id])}}">
                     @csrf
                     @method('PUT')
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">الاسم</label>
                         <div class="col-sm-10">
-                            <input class="form-control" value="اختبار اختبار" name="Title_ar" type="text" id="example-text-input">
+                            <input class="form-control" value="{{$branch->name}}" name="name" type="text" id="example-text-input">
                         </div>
                     </div>
 

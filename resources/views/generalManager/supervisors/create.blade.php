@@ -24,48 +24,71 @@
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">الاسم</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_ar">
+                            <input class="form-control" type="text" id="example-text-input" name="name" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">البريد الالكتروني</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_en">
+                            <input class="form-control" type="text" id="example-text-input" name="email" required>
+                            @error('email')
+                                <span class="" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
+                   
 
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">كلمة المرور</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_ku">
+                            <input class="form-control" minlength="8" type="text" id="example-text-input" name="password" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">رقم الهاتف</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_ku">
+                            <input class="form-control" type="text" id="example-text-input" name="phone" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label"> مدير الصيانة و النظافة التابع له</label>
+                        <label for="example-text-input" class="col-sm-2 col-form-label">رقم الهوية</label>
                         <div class="col-sm-10">
-                            <select class="form-control" name="city_id">
-                                    <option value="maintance">الاسم الاول</option>
-                                    <option value="clean">الاسم الثاني</option>
+                            <input class="form-control" type="text" id="example-text-input" name="id_num" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-sm-2 col-form-label">الرقم الوظيفي </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" id="example-text-input" name="job_num" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-sm-2 col-form-label">المنطقة</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" id="example-text-input" name="area" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">مدير النظافة و الصيانة</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="clean_mantanance_manager_id">
+                                @foreach($branches as $branch)
+                                    @for($i=0; $i < count($branch->cleanManager); $i++)
+                                        <option value="{{$branch->cleanManager[$i]->id}}">{{$branch->cleanManager[$i]->name}}</option>
+                                    @endfor
+                                @endforeach
                             </select>
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label for="example-text-input" class="col-sm-2 col-form-label">المنطقه المشرف عليها</label>
-                        <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_ku">
-                        </div>
-                    </div>
-                    
                     <div class="form-group row">
                         <div class="col-12 text-center">
                             <button type="submit" class="btn btn-dark w-25">اضافة</button>

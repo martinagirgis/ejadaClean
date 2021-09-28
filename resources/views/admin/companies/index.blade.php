@@ -32,7 +32,7 @@
                         <th>الشركة</th>
                         <th>البريد الالكتروني</th>
                         <th>الهاتف</th>
-                        <th>رقم السجل التجاري</th>
+                        <th>كلمة المرور الحالية</th>
                         <th>كلمات المرور</th>
 
                         <th>التحكم</th>
@@ -40,15 +40,18 @@
                     </thead>
 
                     <tbody>
-                        {{-- @foreach($cities as $city) --}}
+                        @foreach($companies as $company)
                         <tr>
-                        <th>اختبار اختبار</th>
-                        <th>test@gmail.com</th>
-                        <th>0120333000222</th>
-                        <th>0120333000222</th>
+                        <th>{{$company->name}}</th>
+                        <th>{{$company->email}}</th>
+                        <th>{{$company->phone}}</th>
+                        <th>{{$company->real_password}}</th>
+                        {{-- <th>{{$company->commercial_register}}</th>
+                        <th>{{$company->id_num}}</th>
+                        <th>{{$company->job_num}}</th> --}}
                         <th>
                             <center>
-                                <a href="{{route('companies.passwords.view',['id'=>1])}}" target="_blank">عرض</a>
+                                <a href="{{route('companies.passwords.view',['id'=>$company->id])}}" target="_blank">عرض</a>
 
                             </center>
                         </th>
@@ -61,8 +64,9 @@
                                             التحكم
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                            <a class="btn btn-dark col-sm-12"  href="{{route('companies.edit',['company'=>1])}}">تعديل</a>
-                                            <form method="post" action="{{route('companies.destroy',['company'=>1])}}">
+                                            <a class="btn btn-dark col-sm-12"  href="{{route('companies.show',['company'=>$company->id])}}">عرض</a><br>
+                                            <a class="btn btn-dark col-sm-12"  href="{{route('companies.edit',['company'=>$company->id])}}">تعديل</a>
+                                            <form method="post" action="{{route('companies.destroy',['company'=>$company->id])}}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-dark col-sm-12" >حذف</button>
@@ -73,7 +77,7 @@
                             </center>
                         </th>
                         </tr>
-                        {{-- @endforeach --}}
+                        @endforeach
 
 
                     </tbody>

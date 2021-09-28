@@ -37,14 +37,14 @@
                     </thead>
 
                     <tbody>
-                        {{-- @foreach($cities as $city) --}}
+                        @foreach($facilities as $facility)
                         <tr>
-                        <th>اختبار اختبار</th>
+                        <th>{{$facility->name}}</th>
                         <th>
-                            <a class="btn btn-dark col-sm-12" data-toggle="modal" data-target="#facilitiesCleantime1">المواعيد</a><br>
+                            <a class="btn btn-dark col-sm-12" data-toggle="modal" data-target="#facilitiesCleantime{{$facility->id}}">المواعيد</a><br>
                         </th>
                         <th>
-                            <a class="btn btn-dark col-sm-12" data-toggle="modal" data-target="#facilitiesMantanancetime1">المواعيد</a><br>
+                            <a class="btn btn-dark col-sm-12" data-toggle="modal" data-target="#facilitiesMantanancetime{{$facility->id}}">المواعيد</a><br>
                         </th>
                         <th> 
                             <center>
@@ -55,8 +55,8 @@
                                             التحكم
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                            <a class="btn btn-dark col-sm-12"  href="{{route('facilities.edit',['facility'=>1])}}">تعديل</a>
-                                            <form method="post" action="{{route('facilities.destroy',['facility'=>1])}}">
+                                            <a class="btn btn-dark col-sm-12"  href="{{route('facilities.edit',['facility'=>$facility->id])}}">تعديل</a>
+                                            <form method="post" action="{{route('facilities.destroy',['facility'=>$facility->id])}}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-dark col-sm-12" >حذف</button>
@@ -67,13 +67,13 @@
                             </center>
                         </th>
                         </tr>
-                        {{-- @endforeach --}}
+                        @endforeach
 
                         
                     </tbody>
                 </table>
-{{-- @foreach($specializations as $specializationn) --}}
-<div class="modal fade" id="facilitiesCleantime1" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="facilitiesCleantimeLabel1" aria-hidden="true">
+@foreach($facilities as $facilitie)
+<div class="modal fade" id="facilitiesCleantime{{$facilitie->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="facilitiesCleantimeLabel1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header backgroundColor text-white" style="border:none">
@@ -86,30 +86,105 @@
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">اليوم</th>
                         <th scope="col">التوقيت</th>
                         <th scope="col">مدة التسليم</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>السبت</td>
-                        <td>
-                            12
-                            <br>
-                            3
-                            <br>
-                            6
-                        </td>
-                        <td>20 دقيقه
-                            <br>
-                            30 دقيقه
-                            <br>
-                            16 دقيقه
-                        </td>
-                    </tr>
+                        @foreach($facilitie->times as $time)
+                        @if($time->type == "clean")
+                          
+                        @if($time->day == "أحد")
+                        <tr>
+                            <td>
+                                أحد
+                            </td>
+                            <td>
+                                {{$time->time}}
+                            </td>
+                            <td>
+                                {{$time->period}} دقيقة
+                            </td>
+                        </tr>
+                        @elseif($time->day == "أثنين")
+                        <tr>
+                            <td>
+                                اثنين
+                            </td>
+                            <td>
+                                {{$time->time}}
+                            </td>
+                            <td>
+                                {{$time->period}} دقيقة
+                            </td>
+                        </tr>
+                        @elseif($time->day == "ثلاثاء")
+                        <tr>
+                            <td>
+                                ثلاثاء
+                            </td>
+                            <td>
+                                {{$time->time}}
+                            </td>
+                            <td>
+                                {{$time->period}} دقيقة
+                            </td>
+                        </tr>
+                        @elseif($time->day == "أربعاء")
+                        <tr>
+                            <td>
+                                أربعاء
+                            </td>
+                            <td>
+                                {{$time->time}}
+                            </td>
+                            <td>
+                                {{$time->period}} دقيقة
+                            </td>
+                        </tr>
+                        @elseif($time->day == "خميس")
+                        <tr>
+                            <td>
+                                خميس
+                            </td>
+                            <td>
+                                {{$time->time}}
+                            </td>
+                            <td>
+                                {{$time->period}} دقيقة
+                            </td>
+                        </tr>
+                        @elseif($time->day == "جمعة")
+                        <tr>
+                            <td>
+                                جمعة
+                            </td>
+                            <td>
+                                {{$time->time}}
+                            </td>
+                            <td>
+                                {{$time->period}}
+                            </td>
+                        </tr>
+                        @elseif($time->day == "سبت")
+                        <tr>
+                            <td>
+                                سبت
+                            </td>
+                            <td>
+                                {{$time->time}}
+                            </td>
+                            <td>
+                                {{$time->period}} دقيقة
+                            </td>
+                        </tr>
+
+                        @endif
+                        @endif
+                        @endforeach
+                        
+                       
                     </tbody>
                 </table>
                 <a class="btn btn-dark col-sm-12"  href="{{route('facilities.cleanAddtimes',['facility'=>1])}}">اضافة مواعيد</a>
@@ -132,7 +207,6 @@
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">اليوم</th>
                         <th scope="col">التوقيت</th>
                         <th scope="col">مدة التسليم</th>
@@ -140,22 +214,97 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <th scope="row">1</th>
-                        <td>السبت</td>
-                        <td>
-                            12
-                            <br>
-                            3
-                            <br>
-                            6
-                        </td>
-                        <td>20 دقيقه
-                            <br>
-                            30 دقيقه
-                            <br>
-                            16 دقيقه
-                        </td>
-                    </tr>
+                        @foreach($facilitie->times as $time)
+                        @if($time->type == "maintatance")
+                          
+                        @if($time->day == "أحد")
+                        <tr>
+                            <td>
+                                أحد
+                            </td>
+                            <td>
+                                {{$time->time}}
+                            </td>
+                            <td>
+                                {{$time->period}} دقيقة
+                            </td>
+                        </tr>
+                        @elseif($time->day == "أثنين")
+                        <tr>
+                            <td>
+                                اثنين
+                            </td>
+                            <td>
+                                {{$time->time}}
+                            </td>
+                            <td>
+                                {{$time->period}} دقيقة
+                            </td>
+                        </tr>
+                        @elseif($time->day == "ثلاثاء")
+                        <tr>
+                            <td>
+                                ثلاثاء
+                            </td>
+                            <td>
+                                {{$time->time}}
+                            </td>
+                            <td>
+                                {{$time->period}} دقيقة
+                            </td>
+                        </tr>
+                        @elseif($time->day == "أربعاء")
+                        <tr>
+                            <td>
+                                أربعاء
+                            </td>
+                            <td>
+                                {{$time->time}}
+                            </td>
+                            <td>
+                                {{$time->period}} دقيقة
+                            </td>
+                        </tr>
+                        @elseif($time->day == "خميس")
+                        <tr>
+                            <td>
+                                خميس
+                            </td>
+                            <td>
+                                {{$time->time}}
+                            </td>
+                            <td>
+                                {{$time->period}} دقيقة
+                            </td>
+                        </tr>
+                        @elseif($time->day == "جمعة")
+                        <tr>
+                            <td>
+                                جمعة
+                            </td>
+                            <td>
+                                {{$time->time}}
+                            </td>
+                            <td>
+                                {{$time->period}}
+                            </td>
+                        </tr>
+                        @elseif($time->day == "سبت")
+                        <tr>
+                            <td>
+                                سبت
+                            </td>
+                            <td>
+                                {{$time->time}}
+                            </td>
+                            <td>
+                                {{$time->period}} دقيقة
+                            </td>
+                        </tr>
+
+                        @endif
+                        @endif
+                        @endforeach
                     </tbody>
                 </table>
                 <a class="btn btn-dark col-sm-12"  href="{{route('facilities.mantananceAddtimes',['facility'=>1])}}">اضافة مواعيد</a>
@@ -164,7 +313,7 @@
         </div>
     </div>
 </div>
-{{-- @endforeach --}}
+@endforeach
             </div>
         </div>
     </div> <!-- end col --> 

@@ -40,25 +40,17 @@
                     </thead>
 
                     <tbody>
-                        {{-- @foreach($cities as $city) --}}
+                        @foreach($teams as $team)
                         <tr>
-                        <th>اختبار اختبار</th>
-                        <th>تيست تيست</th>
-                        <th>0120333000222</th>
-                        <th>3</th>
+                        <th>{{$team->name}}</th>
+                        <th>{{$team->leader_name}}</th>
+                        <th>{{$team->leader_phone}}</th>
+                        <th>{{count($team->members)}}</th>
                         <th>
-                            <a class="btn btn-dark col-sm-12" data-toggle="modal" data-target="#team1">عرض</a><br>
+                            <a class="btn btn-dark col-sm-12" data-toggle="modal" data-target="#team{{$team->id}}">عرض</a><br>
                         </th>
                         <th>
-                            <div class="btn-group" role="group">
-                                <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    المهام
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                    <a class="btn btn-dark col-sm-12" data-toggle="modal" data-target="#sponsoringCompanyOldTasks1">المهام السابقة</a><br>
-                                    <a class="btn btn-dark col-sm-12" data-toggle="modal" data-target="#sponsoringCompanyNewTasks1">المهام الحالية</a><br>
-                                </div>
-                            </div>
+                            <a class="btn btn-dark col-sm-12"  href="{{route('cleanManagerCompany.tasks',['id'=>$team->id])}}">عرض</a>
                         </th>
                         <th> 
                             <center>
@@ -69,8 +61,8 @@
                                             التحكم
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                            <a class="btn btn-dark col-sm-12"  href="{{route('teams.edit',['team'=>1])}}">تعديل</a>
-                                            <form method="post" action="{{route('teams.destroy',['team'=>1])}}">
+                                            <a class="btn btn-dark col-sm-12"  href="{{route('teams.edit',['team'=>$team->id])}}">تعديل</a>
+                                            <form method="post" action="{{route('teams.destroy',['team'=>$team->id])}}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-dark col-sm-12" >حذف</button>
@@ -81,13 +73,13 @@
                             </center>
                         </th>
                         </tr>
-                        {{-- @endforeach --}}
+                        @endforeach
 
                         
                     </tbody>
                 </table>
-{{-- @foreach($specializations as $specializationn) --}}
-<div class="modal fade" id="team1" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="teamLabel1" aria-hidden="true">
+@foreach($teams as $teamm)
+<div class="modal fade" id="team{{$teamm->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="teamLabel1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header backgroundColor text-white" style="border:none">
@@ -100,22 +92,17 @@
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">الاسم</th>
                         <th scope="col">رقم الهاتف</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>اختبار</td>
-                        <td>022222222</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>اختبار 2</td>
-                        <td>099999999</td>
-                    </tr>
+                        @for($i = 0; $i < count($teamm->members); $i++)
+                        <tr>
+                            <td>{{$teamm->members[$i]->name}}</td>
+                            <td>{{$teamm->members[$i]->phone}}</td>
+                        </tr>
+                        @endfor
                     </tbody>
                 </table>
             </div>
@@ -123,89 +110,8 @@
         </div>
     </div>
 </div>
-{{-- @endforeach --}}
+@endforeach
 
-{{-- @foreach($specializations as $specializationn) --}}
-<div class="modal fade" id="sponsoringCompanyOldTasks1" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="sponsoringCompanyOldTasksLabel1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header backgroundColor text-white" style="border:none">
-                <h5 class="modal-title" style="color: black" id="sponsoringCompanyOldTasksLabel1">المهام السابقة</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body backgroundColorSec p-5">
-                <table class="table">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">المهمه</th>
-                        <th scope="col">التاريخ</th>
-                        <th scope="col">الحالة</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>تنظيف المدخل</td>
-                        <td>12/12/2020</td>
-                        <td>جيدة</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>تنظيف المخازن</td>
-                        <td>13/1/2021</td>
-                        <td>لم يأتوا</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="sponsoringCompanyNewTasks1" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="sponsoringCompanyNewTasksLabel1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header backgroundColor text-white" style="border:none">
-                <h5 class="modal-title" style="color: black" id="sponsoringCompanyNewTasksLabel1">المهام الحالية</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body backgroundColorSec p-5">
-                <table class="table">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">المهمه</th>
-                        <th scope="col">التاريخ</th>
-                        <th scope="col">الوقت المتبقي للمهمه</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>تنظيف المدخل</td>
-                        <td>12/12/2020</td>
-                        <td>120 دقيقه</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>تنظيف المخازن</td>
-                        <td>13/1/2021</td>
-                        <td>45 دقيقه</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        
-        </div>
-    </div>
-</div>
-{{-- @endforeach --}}
             </div>
         </div>
     </div> <!-- end col --> 

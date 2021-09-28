@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers\GeneralManager;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\models\Branch;
+use Illuminate\Support\Facades\Auth;
 
 class BranchesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:company_general_manager');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,8 @@ class BranchesController extends Controller
      */
     public function index()
     {
-        return view('generalManager.branches.index');
+        $branches = Branch::where('company_id', Auth::guard('company_general_manager')->id())->get();
+        return view('generalManager.branches.index', compact('branches'));
     }
 
     /**
@@ -35,7 +43,11 @@ class BranchesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Branch::create([
+            'name' => $request->name,
+            'company_id' => Auth::guard('company_general_manager')->id(),
+        ]);
+        return redirect()->route('branches.index')->with('success', 'تم الاضافة بنجاح');
     }
 
     /**
@@ -46,7 +58,8 @@ class BranchesController extends Controller
      */
     public function show($id)
     {
-        //
+        $branch = Branch::find($id);
+        return view('generalManager.branchs.show', compact('qualityManager'));
     }
 
     /**
@@ -57,7 +70,8 @@ class BranchesController extends Controller
      */
     public function edit($id)
     {
-        return view('generalManager.branches.edit');
+        $branch = Branch::find($id);
+        return view('generalManager.branches.edit', compact('branch'));
     }
 
     /**
@@ -69,7 +83,13 @@ class BranchesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $branch = Branch::find($id);
+
+        $branch->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('branches.index')->with('success', 'تم التعديل بنجاح');
     }
 
     /**
@@ -80,6 +100,8 @@ class BranchesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $old = Branch::find($id);
+        $old->delete();
+        return redirect()->route('branches.index')->with('success', 'تم الحذف بنجاح');
     }
 }

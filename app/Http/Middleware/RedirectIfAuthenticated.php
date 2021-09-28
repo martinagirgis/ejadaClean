@@ -18,8 +18,32 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect(RouteServiceProvider::HOME);
+        if ($guard == "admin" && Auth::guard($guard)->check()) {
+            return redirect()->route('admin.companies.index');
+        }
+
+        if ($guard == "company_general_manager" && Auth::guard($guard)->check()) {
+            return redirect()->route('company_general_manager.dashboard');
+        }
+
+        if ($guard == "quality_manager" && Auth::guard($guard)->check()) {
+            return redirect()->route('quality_manager.dashboard');
+        }
+
+        if ($guard == "clean_mantanance_manager" && Auth::guard($guard)->check()) {
+            return redirect()->route('clean_mantanance_manager.dashboard');
+        }
+
+        if ($guard == "supervisor" && Auth::guard($guard)->check()) {
+            return redirect()->route('supervisor.dashboard');
+        }
+
+        if ($guard == "employee" && Auth::guard($guard)->check()) {
+            return redirect()->route('employee.dashboard');
+        }
+
+        if ($guard == "web" && Auth::guard($guard)->check()) {
+            return redirect()->route('home');
         }
 
         return $next($request);

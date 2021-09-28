@@ -2,11 +2,21 @@
 
 namespace App\Http\Controllers\CleanMaintananceManager;
 
-use App\Http\Controllers\Controller;
+use App\models\Task;
+use App\models\Employee;
+use App\models\Supervisor;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class EmployeesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:clean_mantanance_manager');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,9 +24,16 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        return view('cleanMaintananceManager.employees.index');
+        $supervisors = Supervisor::where('clean_mantanance_manager_id', Auth::guard('clean_mantanance_manager')->id())->get();
+        return view('cleanMaintananceManager.employees.index', compact('supervisors'));
     }
 
+    public function allTasks($id)
+    {
+        $tasks = Task::where('employee_id', $id)->get();
+        return view('cleanMaintananceManager.employees.tasks', compact('tasks'));
+    }
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -24,7 +41,8 @@ class EmployeesController extends Controller
      */
     public function create()
     {
-        return view('cleanMaintananceManager.employees.create');
+        $supervisors = Supervisor::where('clean_mantanance_manager_id', Auth::guard('clean_mantanance_manager')->id())->get();
+        return view('cleanMaintananceManager.employees.create', compact('supervisors'));
     }
 
     /**
@@ -35,7 +53,25 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'email' => ['required', 'email', 'max:255', 'unique:employees'],
+        ];
+
+        $this->validate($request,$rules);
+        Employee::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'real_password' => $request->password,
+            'phone' => $request->phone,
+            'job_num' => $request->job_num,
+            'id_num' => $request->id_num,
+            'type' => $request->type,
+            'date' => $request->date,
+            'supervisor_id' => $request->supervisor_id,
+        ]);
+
+        return redirect()->route('employees.index')->with('success', 'تم الاضافة بنجاح');
     }
 
     /**
@@ -46,7 +82,8 @@ class EmployeesController extends Controller
      */
     public function show($id)
     {
-        //
+        $employee = Employee::find($id);
+        return view('cleanMaintananceManager.employees.show', compact('employee'));
     }
 
     /**
@@ -57,7 +94,9 @@ class EmployeesController extends Controller
      */
     public function edit($id)
     {
-        return view('cleanMaintananceManager.employees.edit');
+        $employee = Employee::find($id);
+        $supervisors = Supervisor::where('clean_mantanance_manager_id', Auth::guard('clean_mantanance_manager')->id())->get();
+        return view('cleanMaintananceManager.employees.edit', compact('employee', 'supervisors'));
     }
 
     /**
@@ -69,7 +108,27 @@ class EmployeesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $employee = Employee::find($id);
+
+        $rules = [
+            'email' => ['required', 'email', 'max:255', 'unique:employees,email,' . $employee->id ],
+        ];
+
+        $this->validate($request,$rules);
+
+        $employee->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'real_password' => $request->password,
+            'phone' => $request->phone,
+            'job_num' => $request->job_num,
+            'id_num' => $request->id_num,
+            'type' => $request->type,
+            'date' => $request->date,
+            'supervisor_id' => $request->supervisor_id,
+        ]);
+        return redirect()->route('employees.index')->with('success', 'تم التعديل بنجاح');
     }
 
     /**
@@ -80,6 +139,8 @@ class EmployeesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $old = Employee::find($id);
+        $old->delete();
+        return redirect()->route('employees.index')->with('success', 'تم الحذف بنجاح');
     }
 }

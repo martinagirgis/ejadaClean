@@ -24,28 +24,55 @@
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">الاسم</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_ar">
+                            <input class="form-control" type="text" id="example-text-input" name="name" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">البريد الالكتروني</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_en">
+                            <input class="form-control" type="text" id="example-text-input" name="email" required>
+                            @error('email')
+                                <span class="" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
+                   
 
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">كلمة المرور</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_ku">
+                            <input class="form-control" minlength="8" type="text" id="example-text-input" name="password" required>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-sm-2 col-form-label"> رقم السجل التجاري</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" id="example-text-input" name="commercial_register" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-sm-2 col-form-label">رقم الهاتف</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" id="example-text-input" name="phone" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="example-text-input" class="col-sm-2 col-form-label">رقم الهاتف</label>
+                        <label for="example-text-input" class="col-sm-2 col-form-label">رقم الهوية</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="Title_ku">
+                            <input class="form-control" type="text" id="example-text-input" name="id_num" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-sm-2 col-form-label">الرقم الوظيفي </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" id="example-text-input" name="job_num" required>
                         </div>
                     </div>
 

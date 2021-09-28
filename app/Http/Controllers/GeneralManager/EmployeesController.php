@@ -2,11 +2,21 @@
 
 namespace App\Http\Controllers\GeneralManager;
 
-use App\Http\Controllers\Controller;
+use App\models\Branch;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\models\Employee;
+use App\models\Task;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class EmployeesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:company_general_manager');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +24,14 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        return view('generalManager.employees.index');
+        $branches = Branch::where('company_id', Auth::guard('company_general_manager')->id())->get();
+        return view('generalManager.employees.index', compact('branches'));
+    }
+
+    public function allTasks($id)
+    {
+        $tasks = Task::where('employee_id', $id)->get();
+        return view('generalManager.employees.tasks', compact('tasks'));
     }
 
     /**
@@ -24,7 +41,8 @@ class EmployeesController extends Controller
      */
     public function create()
     {
-        return view('generalManager.employees.create');
+        $branches = Branch::where('company_id', Auth::guard('company_general_manager')->id())->get();
+        return view('generalManager.employees.create', compact('branches'));
     }
 
     /**
@@ -35,7 +53,25 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'email' => ['required', 'email', 'max:255', 'unique:employees'],
+        ];
+
+        $this->validate($request,$rules);
+        Employee::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'real_password' => $request->password,
+            'phone' => $request->phone,
+            'job_num' => $request->job_num,
+            'id_num' => $request->id_num,
+            'type' => $request->type,
+            'date' => $request->date,
+            'supervisor_id' => $request->supervisor_id,
+        ]);
+
+        return redirect()->route('generalManagerEmployees.index')->with('success', 'تم الاضافة بنجاح');
     }
 
     /**
@@ -46,7 +82,8 @@ class EmployeesController extends Controller
      */
     public function show($id)
     {
-        //
+        $employee = Employee::find($id);
+        return view('generalManager.employees.show', compact('employee'));
     }
 
     /**
@@ -57,7 +94,9 @@ class EmployeesController extends Controller
      */
     public function edit($id)
     {
-        return view('generalManager.employees.edit');
+        $employee = Employee::find($id);
+        $branches = Branch::where('company_id', Auth::guard('company_general_manager')->id())->get();
+        return view('generalManager.employees.edit', compact('employee', 'branches'));
     }
 
     /**
@@ -69,7 +108,27 @@ class EmployeesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $employee = Employee::find($id);
+
+        $rules = [
+            'email' => ['required', 'email', 'max:255', 'unique:employees,email,' . $employee->id ],
+        ];
+
+        $this->validate($request,$rules);
+
+        $employee->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'real_password' => $request->password,
+            'phone' => $request->phone,
+            'job_num' => $request->job_num,
+            'id_num' => $request->id_num,
+            'type' => $request->type,
+            'date' => $request->date,
+            'supervisor_id' => $request->supervisor_id,
+        ]);
+        return redirect()->route('generalManagerEmployees.index')->with('success', 'تم التعديل بنجاح');
     }
 
     /**
@@ -80,6 +139,8 @@ class EmployeesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $old = Employee::find($id);
+        $old->delete();
+        return redirect()->route('generalManagerEmployees.index')->with('success', 'تم الحذف بنجاح');
     }
 }

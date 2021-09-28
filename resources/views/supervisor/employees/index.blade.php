@@ -1,5 +1,4 @@
 @extends("layouts.supervisor")
-@section("pageTitle", "Ejada")
 @section("style")
     <link href="{{asset("assets/admin/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css")}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset("assets/admin/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css")}}" rel="stylesheet" type="text/css"/>
@@ -32,139 +31,54 @@
                         <th>الاسم</th>
                         <th>البريد الالكتروني</th>
                         <th>الهاتف</th>
-                        <th>تاريخ الميلاد</th>
                         <th>نوع العمل</th>
+                        <th>المشرف التابع له</th>
                         <th>المهام</th>
                         <th>التحكم</th>
                     </tr>
                     </thead>
 
                     <tbody>
-                        {{-- @foreach($cities as $city) --}}
-                        <tr>
-                        <th>اختبار اختبار</th>
-                        <th>test@gmail.com</th>
-                        <th>0120333000222</th>
-                        <th>10/10/1000</th>
-                        <th>صيانة</th>
-                        <th>
-                            <div class="btn-group" role="group">
-                                <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    المهام
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                    <a class="btn btn-dark col-sm-12" data-toggle="modal" data-target="#employeeOldTasks1">المهام السابقة</a><br>
-                                    <a class="btn btn-dark col-sm-12" data-toggle="modal" data-target="#employeeNewTasks1">المهام الحالية</a><br>
-                                </div>
-                            </div>
-                        </th>
-                        <th> 
-                            <center>
-                                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-    
-                                    <div class="btn-group" role="group">
-                                        <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            التحكم
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                            <a class="btn btn-dark col-sm-12"  href="{{route('supervisorEmployees.edit',['supervisorEmployee'=>1])}}">تعديل</a>
-                                            <form method="post" action="{{route('supervisorEmployees.destroy',['supervisorEmployee'=>1])}}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-dark col-sm-12" >حذف</button>
-                                            </form>
+                        @foreach($employees as $employee)
+                            <tr>
+                                <th>{{$employee->name}}</th>
+                                <th>{{$employee->email}}</th>
+                                <th>{{$employee->phone}}</th>
+                                @if($employee->type == '0')
+                                    <th>عامل صيانة</th>
+                                @elseif($employee->type == '1')
+                                    <th>عامل نظافة</th>
+                                @endif
+                                <th>{{$employee->supervisor->name}}</th>
+                                <th>
+                                    <a class="btn btn-dark col-sm-12"  href="{{route('supervisorEmployees.tasks',['id'=>$employee->id])}}">عرض</a>
+                                </th>
+                                <th> 
+                                    <center>
+                                        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            
+                                            <div class="btn-group" role="group">
+                                                <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    التحكم
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                    <a class="btn btn-dark col-sm-12"  href="{{route('supervisorEmployees.show',['supervisorEmployee'=>$employee->id])}}">عرض</a><br>
+                                                    <a class="btn btn-dark col-sm-12"  href="{{route('supervisorEmployees.edit',['supervisorEmployee'=>$employee->id])}}">تعديل</a>
+                                                    <form method="post" action="{{route('supervisorEmployees.destroy',['supervisorEmployee'=>$employee->id])}}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-dark col-sm-12" >حذف</button>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </center>
-                        </th>
-                        </tr>
-                        {{-- @endforeach --}}
+                                    </center>
+                                </th>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
 
-                        
-                    </tbody>
-                </table>
-{{-- @foreach($specializations as $specializationn) --}}
-<div class="modal fade" id="employeeOldTasks1" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="employeeOldTasksLabel1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header backgroundColor text-white" style="border:none">
-                <h5 class="modal-title" style="color: black" id="employeeOldTasksLabel1">المهام السابقة</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body backgroundColorSec p-5">
-                <table class="table">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">المهمه</th>
-                        <th scope="col">التاريخ</th>
-                        <th scope="col">الحالة</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>تنظيف المدخل</td>
-                        <td>12/12/2020</td>
-                        <td>جيدة</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>تنظيف المخازن</td>
-                        <td>13/1/2021</td>
-                        <td>تمت اعادتة</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="employeeNewTasks1" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="employeeNewTasksLabel1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header backgroundColor text-white" style="border:none">
-                <h5 class="modal-title" style="color: black" id="employeeNewTasksLabel1">المهام الحالية</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body backgroundColorSec p-5">
-                <table class="table">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">المهمه</th>
-                        <th scope="col">التاريخ</th>
-                        <th scope="col">الوقت المتبقي للمهمه</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>تنظيف المدخل</td>
-                        <td>12/12/2020</td>
-                        <td>120 دقيقه</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>تنظيف المخازن</td>
-                        <td>13/1/2021</td>
-                        <td>45 دقيقه</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        
-        </div>
-    </div>
-</div>
-{{-- @endforeach --}}
             </div>
         </div>
     </div> <!-- end col --> 

@@ -19,81 +19,153 @@
                 @endif
                 <h5 class="mb-5 mt-3">تعديل المرفق </h5>
 
-                <form method="post" action="{{route('facilities.update',['facility'=>1])}}">
+                <form method="post" action="{{route('facilities.update',['facility'=>$facility->id])}}">
                     @csrf
                     @method('PUT')
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">الاسم</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" value="اختبار" name="Title_ar">
+                            <input class="form-control" type="text" id="example-text-input" value="{{$facility->name}}" name="name">
                         </div>
                     </div>
+                    <br>
+                    <hr>
+                    <br>
 
-                    <p>
+                    <h3>
                         النظافة الدورية
-                    </p>
+                    </h3>
+
+                    @foreach($facility->times as $time)
+                        @if($time->type == "clean")
 
                     <div class="row">
-                        <div class='form-group col-5'>
-                            <label for="example-text-input" class="col-sm-12 col-form-label">الاسم</label>
+                        <div class='form-group col-3'>
+                            <label for="example-text-input" class="col-sm-12 col-form-label">اليوم</label>
                             <div class="col-sm-12">
-                                <select class="form-control" name="city_id">
-                                    {{-- @foreach($cities as $city) --}}
-                                        <option value="maintance">سبت</option>
-                                        <option value="clean">أحد</option>
-                                        <option value="maintance">اثنين</option>
-                                        <option value="clean">ثلاثاء</option>
-                                        <option value="maintance">أربعاء</option>
-                                        <option value="clean">خميس</option>
-                                        <option value="maintance">جمعة</option>
-                                    {{-- @endforeach --}}
+                                <select class="form-control" name="day|{{$time->id}}">
+                                    <option selected value="{{$time->day}}">{{$time->day}}</option>
+                                    <option value="سبت">سبت</option>
+                                    <option value="أحد">أحد</option>
+                                    <option value="أثنين">أثنين</option>
+                                    <option value="ثلاثاء">ثلاثاء</option>
+                                    <option value="أربعاء">أربعاء</option>
+                                    <option value="خميس">خميس</option>
+                                    <option value="جمعة">جمعة</option>
                                 </select>
                             </div>
                         </div>
         
-                        <div class="form-group col-5">
-                            <label for="example-text-input" class="col-sm-12 col-form-label">رقم الهاتف</label>
+                        <div class="form-group col-2">
+                            <label for="example-text-input" class="col-sm-12 col-form-label">الوقت</label>
                             <div class="col-sm-12">
-                                <input class="form-control" type="text" id="example-text-input" value="00000000" name="Title_ku">
+                                <input class="form-control" type="time" id="example-text-input" value="{{$time->time}}" name="time|{{$time->id}}">
                             </div>
                         </div>
 
                         <div class="form-group col-2">
-                            <a class="btn btn-dark col-sm-12">حذف</a>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class='form-group col-5'>
-                            <label for="example-text-input" class="col-sm-12 col-form-label">الاسم</label>
+                            <label for="example-text-input" class="col-sm-12 col-form-label">المدة</label>
                             <div class="col-sm-12">
-                                <input class="form-control" type="text" id="example-text-input" value="اختبار عضو 2" name="Title_en">
-                            </div>
-                        </div>
-        
-                        <div class="form-group col-5">
-                            <label for="example-text-input" class="col-sm-12 col-form-label">رقم الهاتف</label>
-                            <div class="col-sm-12">
-                                <input class="form-control" type="text" id="example-text-input" value="0111111111" name="Title_ku">
+                                <input class="form-control" type="number" id="example-text-input" value="{{$time->period}}" name="period|{{$time->id}}">
                             </div>
                         </div>
 
+                        <div class="form-group col-3">
+                            <label for="example-text-input" class="col-sm-12 col-form-label">العامل</label>
+                            <div class="col-sm-12">
+                                <select class="form-control" name="employee_id|{{$time->id}}" required>
+                                    @foreach($supervisors as $supervisor)
+                                        @for($i=0; $i < count($supervisor->employee); $i++)
+                                            @if($supervisor->employee[$i]->type == '1')
+                                            @if($supervisor->employee[$i]->id == $time->employee_id)
+                                            <option value="{{$supervisor->employee[$i]->id}}" selected>{{$supervisor->employee[$i]->name}}</option>
+                                            @else
+                                            <option value="{{$supervisor->employee[$i]->id}}">{{$supervisor->employee[$i]->name}}</option>
+                                            @endif
+                                            @endif
+                                        @endfor
+                                    @endforeach
+                                    </select>
+                                </div>
+                        </div>
+                        
                         <div class="form-group col-2">
-                            <a class="btn btn-dark col-sm-12">حذف</a>
+                            <a href="{{route('facilities.times.delete',['time'=>$time->id])}}" class="btn btn-dark col-sm-12" >حذف</a>
                         </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="example-text-input" class="col-sm-2 col-form-label">اضافة اعضاء الفريق</label>
-                        <div class="col-sm-10">
-                            <input class="form-control" type="number" onfocusout="loadMember()" id="memberNum" name="Title_ku">
-                        </div>
-                    </div>
-
-                    <div id="members">
 
                     </div>
+                    @endif
+                    @endforeach
 
+                    <br>
+                    <hr>
+                    <br>
+                    <h3>
+                        الصيانة الدورية
+                    </h3>
+
+                    @foreach($facility->times as $timee)
+                        @if($timee->type == "maintatance")
+
+                            <div class="row">
+                                <div class='form-group col-3'>
+                                    <label for="example-text-input" class="col-sm-12 col-form-label">اليوم</label>
+                                    <div class="col-sm-12">
+                                        <select class="form-control" name="day|{{$timee->id}}">
+                                            <option selected value="{{$timee->day}}">{{$timee->day}}</option>
+                                            <option value="سبت">سبت</option>
+                                            <option value="أحد">أحد</option>
+                                            <option value="أثنين">أثنين</option>
+                                            <option value="ثلاثاء">ثلاثاء</option>
+                                            <option value="أربعاء">أربعاء</option>
+                                            <option value="خميس">خميس</option>
+                                            <option value="جمعة">جمعة</option>
+                                        </select>
+                                    </div>
+                                </div>
+                
+                                <div class="form-group col-2">
+                                    <label for="example-text-input" class="col-sm-12 col-form-label">الوقت</label>
+                                    <div class="col-sm-12">
+                                        <input class="form-control" type="time" id="example-text-input" value="{{$timee->time}}" name="time|{{$timee->id}}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-2">
+                                    <label for="example-text-input" class="col-sm-12 col-form-label">المدة</label>
+                                    <div class="col-sm-12">
+                                        <input class="form-control" type="number" id="example-text-input" value="{{$timee->period}}" name="period|{{$timee->id}}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-3">
+                                    <label for="example-text-input" class="col-sm-12 col-form-label">العامل</label>
+                                    <div class="col-sm-12">
+                                        <select class="form-control" name="employee_id|{{$timee->id}}" required>
+                                            @foreach($supervisors as $supervisorr)
+                                                @for($i=0; $i < count($supervisorr->employee); $i++)
+                                                    @if($supervisorr->employee[$i]->type == '0')
+                                                    @if($supervisorr->employee[$i]->id == $timee->employee_id)
+                                                    <option value="{{$supervisorr->employee[$i]->id}}" selected>{{$supervisorr->employee[$i]->name}}</option>
+                                                    @else
+                                                    <option value="{{$supervisorr->employee[$i]->id}}">{{$supervisorr->employee[$i]->name}}</option>
+                                                    @endif
+                                                    @endif
+                                                @endfor
+                                            @endforeach
+                                            </select>
+                                        </div>
+                                </div>
+                                
+                                <div class="form-group col-2">
+                                    <a href="{{route('facilities.times.delete',['time'=>$timee->id])}}" class="btn btn-dark col-sm-12" >حذف</a>
+                                </div>
+
+                            </div>
+                        @endif
+                    @endforeach
+
+                    
                     <div class="form-group row">
                         <div class="col-12 text-center">
                             <button type="submit" class="btn btn-dark w-25">تعديل</button>
