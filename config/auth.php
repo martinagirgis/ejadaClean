@@ -71,10 +71,20 @@ return [
             'provider' => 'employees',
         ],
 
-        'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
+        // 'api' => [
+        //     'driver' => 'token',
+        //     'provider' => 'users',
+        //     'hash' => false,
+        // ],
+
+        'apiSupervisors' => [
+            'driver' => 'jwt',
+            'provider' => 'supervisors',
+        ],
+
+        'apiEmployees' => [
+            'driver' => 'jwt',
+            'provider' => 'employees',
         ],
     ],
 
@@ -130,6 +140,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\models\Employee::class,
         ],
+
+        // 'apis' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\models\Supervisor::class,
+        // ],
 
         // 'users' => [
         //     'driver' => 'database',

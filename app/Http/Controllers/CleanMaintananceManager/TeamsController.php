@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\CleanMaintananceManager;
 
+use App\models\Task;
 use App\models\Team;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\models\TeamMember;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\For_;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class TeamsController extends Controller
 {
@@ -25,6 +26,18 @@ class TeamsController extends Controller
     {
         $teams = Team::where('clean_mantanance_manager_id', Auth::guard('clean_mantanance_manager')->id())->get();
         return view('cleanMaintananceManager.teams.index', compact('teams'));
+    }
+
+    public function allTasks($id)
+    {
+        $tasks = Task::where('branch_id', Auth::guard('clean_mantanance_manager')->user()->branch->id)->where('support_type',1)->where('support_id',$id)->get();
+        return view('cleanMaintananceManager.teams.tasks', compact('tasks'));
+    }
+
+    public function showTask($id)
+    {
+        $task = Task::find($id);
+        return view('cleanMaintananceManager.tasks.show', compact('task'));
     }
 
     /**

@@ -32,8 +32,8 @@
                         <th>البريد الالكتروني</th>
                         <th>الهاتف</th>
                         <th>نوع العمل</th>
-                        <th>المشرف التابع له</th>
-                        <th>المهام</th>
+                        {{-- <th>المشرف التابع له</th> --}}
+                        {{-- <th>المهام</th> --}}
                         <th>التحكم</th>
                     </tr>
                     </thead>
@@ -49,10 +49,10 @@
                                 @elseif($employee->type == '1')
                                     <th>عامل نظافة</th>
                                 @endif
-                                <th>{{$employee->supervisor->name}}</th>
-                                <th>
+                                {{-- <th>{{$employee->supervisor->name}}</th> --}}
+                                {{-- <th>
                                     <a class="btn btn-dark col-sm-12"  href="{{route('supervisorEmployees.tasks',['id'=>$employee->id])}}">عرض</a>
-                                </th>
+                                </th> --}}
                                 <th> 
                                     <center>
                                         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">

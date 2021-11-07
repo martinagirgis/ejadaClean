@@ -88,11 +88,7 @@
     // lastFriday.setDate(t);
     // console.log(lastFriday);
 
-    <?php 
-    $z = date("Y-m-d", strtotime("last Saturday"));
-    $z = (date('W', strtotime($z)) == date('W')) ? (strtotime($z)-7*86400+7200) : strtotime($z);
-     date("Y-m-d", $z);
-    ?>
+    
 
     document.addEventListener('DOMContentLoaded', function() {
   var calendarEl = document.getElementById('calendar');

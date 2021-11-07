@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-xl-4">
+    {{-- <div class="col-md-6 col-xl-4">
         <div class="card">
             <div class="card-body">
                 <div class="mini-stat clearfix">
@@ -31,8 +31,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-6 col-xl-4">
+    </div> --}}
+    {{-- <div class="col-md-6 col-xl-4">
         <div class="card">
             <div class="card-body">
                 <div class="mini-stat clearfix">
@@ -45,7 +45,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 </div>
 

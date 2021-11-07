@@ -28,8 +28,14 @@ class SponsoringCompaniesController extends Controller
 
     public function allTasks($id)
     {
-        $tasks = Task::where('support_id', $id)->where('support_type', 'company')->get();
+        $tasks = Task::where('branch_id', Auth::guard('clean_mantanance_manager')->user()->branch->id)->where('support_type',2)->where('support_id',$id)->get();
         return view('cleanMaintananceManager.sponsoringCompanies.tasks', compact('tasks'));
+    }
+
+    public function showTask($id)
+    {
+        $task = Task::find($id);
+        return view('cleanMaintananceManager.tasks.show', compact('task'));
     }
 
     /**

@@ -15,6 +15,8 @@ class CreateFacilityTimesTable extends Migration
     {
         Schema::create('facility_times', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
             $table->string('day');
             $table->time('time');
             $table->string('period');

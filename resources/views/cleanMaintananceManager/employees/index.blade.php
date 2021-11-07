@@ -33,7 +33,7 @@
                         <th>الهاتف</th>
                         <th>نوع العمل</th>
                         <th>المشرف التابع له</th>
-                        <th>المهام</th>
+                        {{-- <th>المهام</th> --}}
                         <th>التحكم</th>
                     </tr>
                     </thead>
@@ -51,9 +51,9 @@
                                                 <th>عامل نظافة</th>
                                             @endif
                                             <th>{{$supervisor->name}}</th>
-                                            <th>
+                                            {{-- <th>
                                                 <a class="btn btn-dark col-sm-12"  href="{{route('cleanManagerEmployees.tasks',['id'=>$supervisor->employee[$i]->id])}}">عرض</a>
-                                            </th>
+                                            </th> --}}
                                             <th> 
                                                 <center>
                                                     <div class="btn-group" role="group" aria-label="Button group with nested dropdown">

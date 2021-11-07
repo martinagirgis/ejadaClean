@@ -6,7 +6,7 @@
 
         <li>
             <a href="javascript: void(0);" class="has-arrow">
-                <i class="fas fa-exclamation-triangle"></i>
+                 <img src="{{asset("assets/admin/images/emp/icon7.png")}}" style="width: 25px; height: 25px;">
                 <span> مدراء الجودة </span>
             </a>
             <ul class="sub-menu" aria-expanded="false">
@@ -20,7 +20,7 @@
 
         <li>
             <a href="javascript: void(0);" class="has-arrow">
-                <i class="fas fa-exclamation-triangle"></i>
+                 <img src="{{asset("assets/admin/images/emp/icon8.png")}}" style="width: 25px; height: 25px;">
                 <span> مدير النظافة و الصيانة </span>
             </a>
             <ul class="sub-menu" aria-expanded="false">
@@ -31,18 +31,20 @@
 
         <li>
             <a href="javascript: void(0);" class="has-arrow">
-                <i class="fas fa-exclamation-triangle"></i>
-                <span>فرع جديد</span>
+                 <img src="{{asset("assets/admin/images/emp/icon9.png")}}" style="width: 25px; height: 25px;">
+                <span>
+                     المناطق
+                     </span>
             </a>
             <ul class="sub-menu" aria-expanded="false">
                 <li><a href="{{route("branches.index")}}">عرض الكل</a></li>
-                <li><a href="{{route("branches.create")}}">اضافة فرع جديد</a></li>
+                <li><a href="{{route("branches.create")}}">اضافة منطقة جديد</a></li>
             </ul>
         </li>
         
         <li>
             <a href="javascript: void(0);" class="has-arrow">
-                <i class="fas fa-exclamation-triangle"></i>
+                 <img src="{{asset("assets/admin/images/emp/icon11.png")}}" style="width: 25px; height: 25px;">
                 <span> المشرفين </span>
             </a>
             <ul class="sub-menu" aria-expanded="false">
@@ -53,7 +55,7 @@
 
         <li>
             <a href="javascript: void(0);" class="has-arrow">
-                <i class="fas fa-exclamation-triangle"></i>
+                 <img src="{{asset("assets/admin/images/emp/icon4.png")}}" style="width: 25px; height: 25px;">
                 <span> العمال </span>
             </a>
             <ul class="sub-menu" aria-expanded="false">

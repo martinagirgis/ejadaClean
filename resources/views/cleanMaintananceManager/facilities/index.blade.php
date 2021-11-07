@@ -73,11 +73,11 @@
                     </tbody>
                 </table>
 @foreach($facilities as $facilitie)
-<div class="modal fade" id="facilitiesCleantime{{$facilitie->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="facilitiesCleantimeLabel1" aria-hidden="true">
+<div class="modal fade" id="facilitiesCleantime{{$facilitie->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="facilitiesCleantimeLabel{{$facilitie->id}}" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header backgroundColor text-white" style="border:none">
-                <h5 class="modal-title" style="color: black" id="facilitiesCleantimeLabel1">النظافة الدورية</h5>
+                <h5 class="modal-title" style="color: black" id="facilitiesCleantimeLabel{{$facilitie->id}}">النظافة الدورية</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -95,7 +95,7 @@
                         @foreach($facilitie->times as $time)
                         @if($time->type == "clean")
                           
-                        @if($time->day == "أحد")
+                        @if($time->day == "Sun")
                         <tr>
                             <td>
                                 أحد
@@ -107,7 +107,7 @@
                                 {{$time->period}} دقيقة
                             </td>
                         </tr>
-                        @elseif($time->day == "أثنين")
+                        @elseif($time->day == "Mon")
                         <tr>
                             <td>
                                 اثنين
@@ -119,7 +119,7 @@
                                 {{$time->period}} دقيقة
                             </td>
                         </tr>
-                        @elseif($time->day == "ثلاثاء")
+                        @elseif($time->day == "Tue")
                         <tr>
                             <td>
                                 ثلاثاء
@@ -131,7 +131,7 @@
                                 {{$time->period}} دقيقة
                             </td>
                         </tr>
-                        @elseif($time->day == "أربعاء")
+                        @elseif($time->day == "Wed")
                         <tr>
                             <td>
                                 أربعاء
@@ -143,7 +143,7 @@
                                 {{$time->period}} دقيقة
                             </td>
                         </tr>
-                        @elseif($time->day == "خميس")
+                        @elseif($time->day == "Tue")
                         <tr>
                             <td>
                                 خميس
@@ -155,7 +155,7 @@
                                 {{$time->period}} دقيقة
                             </td>
                         </tr>
-                        @elseif($time->day == "جمعة")
+                        @elseif($time->day == "Fri")
                         <tr>
                             <td>
                                 جمعة
@@ -164,10 +164,10 @@
                                 {{$time->time}}
                             </td>
                             <td>
-                                {{$time->period}}
+                                {{$time->period}} دقيقة
                             </td>
                         </tr>
-                        @elseif($time->day == "سبت")
+                        @elseif($time->day == "Sat")
                         <tr>
                             <td>
                                 سبت
@@ -187,18 +187,18 @@
                        
                     </tbody>
                 </table>
-                <a class="btn btn-dark col-sm-12"  href="{{route('facilities.cleanAddtimes',['facility'=>1])}}">اضافة مواعيد</a>
+                <a class="btn btn-dark col-sm-12"  href="{{route('facilities.cleanAddtimes',['facility'=>$facilitie->id])}}">اضافة مواعيد</a>
             </div>
         
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="facilitiesMantanancetime1" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="facilitiesMantanancetimeLabel1" aria-hidden="true">
+<div class="modal fade" id="facilitiesMantanancetime{{$facilitie->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="facilitiesMantanancetimeLabel{{$facilitie->id}}" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header backgroundColor text-white" style="border:none">
-                <h5 class="modal-title" style="color: black" id="facilitiesMantanancetimeLabel1">الصيانة الدورية</h5>
+                <h5 class="modal-title" style="color: black" id="facilitiesMantanancetimeLabel{{$facilitie->id}}">الصيانة الدورية</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -217,7 +217,7 @@
                         @foreach($facilitie->times as $time)
                         @if($time->type == "maintatance")
                           
-                        @if($time->day == "أحد")
+                        @if($time->day == "Sun")
                         <tr>
                             <td>
                                 أحد
@@ -229,7 +229,7 @@
                                 {{$time->period}} دقيقة
                             </td>
                         </tr>
-                        @elseif($time->day == "أثنين")
+                        @elseif($time->day == "Mon")
                         <tr>
                             <td>
                                 اثنين
@@ -241,7 +241,7 @@
                                 {{$time->period}} دقيقة
                             </td>
                         </tr>
-                        @elseif($time->day == "ثلاثاء")
+                        @elseif($time->day == "Tue")
                         <tr>
                             <td>
                                 ثلاثاء
@@ -253,7 +253,7 @@
                                 {{$time->period}} دقيقة
                             </td>
                         </tr>
-                        @elseif($time->day == "أربعاء")
+                        @elseif($time->day == "Wed")
                         <tr>
                             <td>
                                 أربعاء
@@ -265,7 +265,7 @@
                                 {{$time->period}} دقيقة
                             </td>
                         </tr>
-                        @elseif($time->day == "خميس")
+                        @elseif($time->day == "Thu")
                         <tr>
                             <td>
                                 خميس
@@ -277,7 +277,7 @@
                                 {{$time->period}} دقيقة
                             </td>
                         </tr>
-                        @elseif($time->day == "جمعة")
+                        @elseif($time->day == "Fri")
                         <tr>
                             <td>
                                 جمعة
@@ -286,10 +286,10 @@
                                 {{$time->time}}
                             </td>
                             <td>
-                                {{$time->period}}
+                                {{$time->period}} دقيقة
                             </td>
                         </tr>
-                        @elseif($time->day == "سبت")
+                        @elseif($time->day == "Sat")
                         <tr>
                             <td>
                                 سبت
@@ -307,7 +307,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                <a class="btn btn-dark col-sm-12"  href="{{route('facilities.mantananceAddtimes',['facility'=>1])}}">اضافة مواعيد</a>
+                <a class="btn btn-dark col-sm-12"  href="{{route('facilities.mantananceAddtimes',['facility'=>$facilitie->id])}}">اضافة مواعيد</a>
             </div>
         
         </div>

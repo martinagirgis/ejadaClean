@@ -40,18 +40,32 @@
                         @if($time->type == "clean")
 
                     <div class="row">
+                        <div class="form-group col-6">
+                            <label for="example-text-input" class="col-sm-12 col-form-label">العنوان</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" id="example-text-input" name="title|{{$time->id}}" value="{{$time->title}}" required>
+                            </div>
+                        </div>
+        
+                        <div class="form-group col-6">
+                            <label for="example-text-input" class="col-sm-12 col-form-label">التفاصيل</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="example-text-input" name="description|{{$time->id}}" required>{{$time->description}}</textarea>
+                            </div>
+                        </div>
+
                         <div class='form-group col-3'>
                             <label for="example-text-input" class="col-sm-12 col-form-label">اليوم</label>
                             <div class="col-sm-12">
                                 <select class="form-control" name="day|{{$time->id}}">
                                     <option selected value="{{$time->day}}">{{$time->day}}</option>
-                                    <option value="سبت">سبت</option>
-                                    <option value="أحد">أحد</option>
-                                    <option value="أثنين">أثنين</option>
-                                    <option value="ثلاثاء">ثلاثاء</option>
-                                    <option value="أربعاء">أربعاء</option>
-                                    <option value="خميس">خميس</option>
-                                    <option value="جمعة">جمعة</option>
+                                    <option value="Sat">سبت</option>
+                                    <option value="Sun">أحد</option>
+                                    <option value="Mon">أثنين</option>
+                                    <option value="Tue">ثلاثاء</option>
+                                    <option value="Wed">أربعاء</option>
+                                    <option value="Thu">خميس</option>
+                                    <option value="Fri">جمعة</option>
                                 </select>
                             </div>
                         </div>
@@ -108,18 +122,32 @@
                         @if($timee->type == "maintatance")
 
                             <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="example-text-input" class="col-sm-12 col-form-label">العنوان</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="text" id="example-text-input" name="title|{{$timee->id}}" value="{{$timee->title}}" required>
+                                    </div>
+                                </div>
+                
+                                <div class="form-group col-6">
+                                    <label for="example-text-input" class="col-sm-12 col-form-label">التفاصيل</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" id="example-text-input" name="description|{{$timee->id}}" required>{{$timee->description}}</textarea>
+                                    </div>
+                                </div>
+
                                 <div class='form-group col-3'>
                                     <label for="example-text-input" class="col-sm-12 col-form-label">اليوم</label>
                                     <div class="col-sm-12">
                                         <select class="form-control" name="day|{{$timee->id}}">
                                             <option selected value="{{$timee->day}}">{{$timee->day}}</option>
-                                            <option value="سبت">سبت</option>
-                                            <option value="أحد">أحد</option>
-                                            <option value="أثنين">أثنين</option>
-                                            <option value="ثلاثاء">ثلاثاء</option>
-                                            <option value="أربعاء">أربعاء</option>
-                                            <option value="خميس">خميس</option>
-                                            <option value="جمعة">جمعة</option>
+                                            <option value="Sat">سبت</option>
+                                            <option value="Sun">أحد</option>
+                                            <option value="Mon">أثنين</option>
+                                            <option value="Tue">ثلاثاء</option>
+                                            <option value="Wed">أربعاء</option>
+                                            <option value="Thu">خميس</option>
+                                            <option value="Fri">جمعة</option>
                                         </select>
                                     </div>
                                 </div>

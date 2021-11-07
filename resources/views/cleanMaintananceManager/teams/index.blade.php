@@ -50,7 +50,7 @@
                             <a class="btn btn-dark col-sm-12" data-toggle="modal" data-target="#team{{$team->id}}">عرض</a><br>
                         </th>
                         <th>
-                            <a class="btn btn-dark col-sm-12"  href="{{route('cleanManagerCompany.tasks',['id'=>$team->id])}}">عرض</a>
+                            <a class="btn btn-dark col-sm-12"  href="{{route('cleanManager.team.tasks',['id'=>$team->id])}}">عرض</a>
                         </th>
                         <th> 
                             <center>

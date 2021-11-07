@@ -1,4 +1,4 @@
-@extends("layouts.employee")
+@extends("layouts.supervisor")
 @section("pageTitle", "المشرفين")
 @section("content")
     <div class="row">

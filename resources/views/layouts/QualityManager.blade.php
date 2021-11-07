@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>محطات تنظيف</title>
+    <title>fix it </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @yield("styleChart")
     <!-- App favicon -->
@@ -33,13 +33,13 @@
         <div class="navbar-header">
             <div class="d-flex">
                 <!-- LOGO -->
-                <div class="navbar-brand-box">
+               <div class="navbar-brand-box">
                     <a href="#" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="{{asset("assets/admin/images/logo_small.jpg")}}" alt="" height="22">
+                            <img src="{{asset("assets/admin/images/icon.png")}}" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="{{asset("assets/admin/images/logo.jpg")}}" alt="" height="36">
+                            <img src="{{asset("assets/admin/images/logo.jpg")}}" alt="" style="width: 160px; height: 90px;">
                         </span>
                     </a>
                 </div>
@@ -50,7 +50,7 @@
                 </button>
 
                 <div class="d-none d-sm-block ml-2">
-                    <h4 class="page-title">محطات تنظيف</h4>
+                    <h4 class="page-title">مدير الجودة </h4>
                 </div>
             </div>
 

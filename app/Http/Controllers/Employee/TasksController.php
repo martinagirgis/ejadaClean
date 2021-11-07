@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Employee;
 
-use App\Http\Controllers\Controller;
+use App\models\Task;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class TasksController extends Controller
 {
@@ -17,10 +19,86 @@ class TasksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function tasksDone()
     {
-        //
+        $tasks = Task::where('support_type','0')->where('support_id',Auth::guard('employee')->id())->whereIn('state',[5,6])->get();
+        return view('employee.Tasks.done',compact('tasks'));
     }
+
+    public function tasksDoneSearsh($id)
+    {
+        $tasks = Task::where('support_type','0')->where('support_id',Auth::guard('employee')->id())->whereIn('state',[5,6])->whereDate('date',$id)->get();
+        return view('employee.Tasks.done',compact('tasks','id'));
+    }
+
+    public function taskWaiting()
+    {
+        $tasks = Task::where('support_type','0')->where('support_id',Auth::guard('employee')->id())->whereIn('state',[2,4])->get();
+        return view('employee.Tasks.waiting',compact('tasks'));
+    }
+
+    public function taskWaitingSearsh($id)
+    {
+        $tasks = Task::where('support_type','0')->where('support_id',Auth::guard('employee')->id())->whereIn('state',[2,4])->whereDate('date',$id)->get();
+        return view('employee.Tasks.waiting',compact('tasks','id'));
+    }
+
+    public function taskNow()
+    {
+        $tasks = Task::where('support_type','0')->where('support_id',Auth::guard('employee')->id())->whereIn('state',[1,3,7,8])->get();
+        return view('employee.Tasks.now',compact('tasks'));
+    }
+
+    public function taskNowSearsh($id)
+    {
+        $tasks = Task::where('support_type','0')->where('support_id',Auth::guard('employee')->id())->whereIn('state',[1,3,7,8])->whereDate('date',$id)->get();
+        return view('employee.Tasks.now',compact('tasks','id'));
+    }
+
+    public function tasksSend($id)
+    {
+        $task = Task::find($id);
+        return view('employee.Tasks.send',compact('task'));
+    }
+
+    public function tasksSendStore(Request $request)
+    {
+        $task = Task::find($request->id);
+
+        $request->validate([
+            'file' => 'required',
+        ]);
+ 
+       $title = time().'.'.request()->file->getClientOriginalExtension();
+  
+       $request->file->move(public_path('assets/attach'), $title);
+
+       $task->update([
+            'note' => $request->note,
+            'attach' => $title,
+            'state' => '2'
+        ]);
+  
+        return response()->json(['success'=>'File Uploaded Successfully']);
+    }
+
+    public function tasksDelay($id)
+    {
+        $task = Task::find($id);
+
+       $task->update([
+            'state' => '7'
+        ]);
+
+        return redirect()->back()->with('success','تم طلب مد الوقت');
+    }
+
+    public function taskShow($id)
+    {
+        $task = Task::find($id);
+        return view('employee.Tasks.show',compact('task'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -91,15 +169,5 @@ class TasksController extends Controller
     public function sendTaskNow($id)
     {
         return view('employee.Tasks.now');
-    }
-
-    public function taskWaiting($id)
-    {
-        return view('employee.Tasks.waiting');
-    }
-
-    public function tasDone($id)
-    {
-        return view('employee.Tasks.done');
     }
 }

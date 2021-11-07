@@ -26,13 +26,13 @@
                         <div class="col-sm-10">
                             <select class="form-control" name="day" required>
                                 {{-- @foreach($cities as $city) --}}
-                                    <option value="سبت">سبت</option>
-                                    <option value="أحد">أحد</option>
-                                    <option value="أثنين">أثنين</option>
-                                    <option value="ثلاثاء">ثلاثاء</option>
-                                    <option value="أربعاء">أربعاء</option>
-                                    <option value="خميس">خميس</option>
-                                    <option value="جمعة">جمعة</option>
+                                <option value="Sat">السبت</option>
+                                    <option value="Sun">الأحد</option>
+                                    <option value="Mon">الأثنين</option>
+                                    <option value="Tue">الثلاثاء</option>
+                                    <option value="Wed">الأربعاء</option>
+                                    <option value="Thu">الخميس</option>
+                                    <option value="Fri">الجمعة</option>
                                 {{-- @endforeach --}}
                             </select>
                         </div>
@@ -69,10 +69,24 @@
         for (let index = 0; index < memberNum; index++) {
             x += `
             <div class="row">
+                <div class="form-group col-6">
+                    <label for="example-text-input" class="col-sm-12 col-form-label">العنوان</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" type="text" id="example-text-input" name="title`+index+`" required>
+                    </div>
+                </div>
+
+                <div class="form-group col-6">
+                    <label for="example-text-input" class="col-sm-12 col-form-label">التفاصيل</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="example-text-input" name="description`+index+`" required></textarea>
+                    </div>
+                </div>
+                
                 <div class='form-group col-4'>
                     <label for="example-text-input" class="col-sm-12 col-form-label">الوقت</label>
                     <div class="col-sm-10">
-                        <input class="form-control" type="time" id="example-text-input" name="time`+index+`" required>
+                        <input class="form-control" type="time" id="example-text-input" value="{{ date("h:i:s") }}" name="time`+index+`" required>
                     </div>
                 </div>
 

@@ -20,7 +20,34 @@
     <link href="{{asset("assets/admin/css/redo.css")}}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="{{asset('assets/site/css/teacher.css')}}">
 
+<style>
+        .field-icon {
+            float: right;
+            margin-top: -50px;
+            position: relative;
+            z-index: 2;
+        }
+        .field-icon1 {
+            float: right;
+            margin-top: -27px;
+            position: relative;
+            z-index: 2;
+        }
+        .field-icon_ar {
+            float: left;
+            margin-top: -50px;
+            position: relative;
+            z-index: 2;
+        }
+        .field-icon1_ar {
+            float: left;
+            margin-top: -27px;
+            position: relative;
+            z-index: 2;
+        }
 
+
+    </style>
 </head>
 <body>
 
@@ -43,13 +70,12 @@
                             </div>
                             @endif
                             <div class="text-center mt-4">
-                                <div class="mb-3">
-                                    <a href="index.html"><img src="{{asset("assets/admin/images/logo.png")}}" height="30" alt="logo"></a>
+                                <div class="">
+                                    <a href="index.html"><img src="{{asset("assets/admin/images/logonew.png")}}" height="50" alt="logo"></a>
                                 </div>
                             </div>
-                            <div class="p-3">
+                            <div class="p-3 pt-0">
                                 <h4 class="font-size-18 mt-2 text-center">تسجيل دخول</h4>
-                                <p class="text-muted text-center mb-4">المسؤول</p>
 
                                 <form class="form-horizontal" method="post"  action="{{route('check.auth.login')}}">
                                     @csrf
@@ -71,29 +97,23 @@
 
                                     <div class="form-group">
                                         <label for="userpassword">كلمة المرور</label>
-                                        <input type="password" class="form-control" name="password" id="userpassword" placeholder="ادخل كلمة المرور" required>
+                                        
+                                        <input type="password" class="form-control" name="password" id="inputPassword4" placeholder="ادخل كلمة المرور" required>
+                                        <span toggle="#password-field" class="fa fa-fw fa-eye-slash field-icon1_ar toggle-password"></span>
                                     </div>
 
-                                    <div class="form-group row mt-4">
-                                        <div class="col-sm-6 text-right">
+                                    <div class="form-group row m-auto">
+                                        <div class="col-sm-12 text-center">
                                             <button class="btn btn-primary w-md waves-effect waves-light" type="submit">تسجيل دخول</button>
                                         </div>
                                     </div>
 
-                                    <div class="form-group mb-0 row">
-                                        <div class="col-12 mt-4">
-                                            <a href="pages-recoverpw.html" class="text-muted"><i class="mdi mdi-lock"></i> هل نسيت كلمة المرور</a>
-                                        </div>
-                                    </div>
                                 </form>
 
                             </div>
 
                         </div>
                     </div>
-                    {{-- <div class="mt-5 text-center">
-                        <p class="text-white"> <a href="pages-register.html" class="font-weight-bold text-primary"> Signup Now </a> </p>
-                    </div> --}}
 
                 </div>
             </div>
@@ -107,6 +127,17 @@
     <script src="{{asset("assets/admin/libs/simplebar/simplebar.min.js")}}"></script>
     <script src="{{asset("assets/admin/libs/node-waves/waves.min.js")}}"></script>
     <script src="{{asset("assets/admin/js/app.js")}}"></script>
+<script>
+    $(".toggle-password").click(function() {
 
+           $(this).toggleClass("fa-eye fa-eye-slash");
+           var input = $("#inputPassword4");
+           if (input.attr("type") == "password") {
+               input.attr("type", "text");
+           } else {
+               input.attr("type", "password");
+           }
+       });
+</script>
 </body>
 </html>

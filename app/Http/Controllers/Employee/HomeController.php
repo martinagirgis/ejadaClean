@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\models\FacilityTimes;
+use App\models\periodicTask;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -18,8 +19,8 @@ class HomeController extends Controller
 
     public function index()
     {
-        $tasks = Task::where('employee_id',Auth::guard('employee')->id())->get();
-        $times = FacilityTimes::where('employee_id',Auth::guard('employee')->id())->get();
-        return view('employee.home',compact('tasks', 'times'));
+        $tasks = Task::where('support_type','0')->where('support_id',Auth::guard('employee')->id())->get();
+        $periodicTasks = periodicTask::where('support_type','0')->where('support_id',Auth::guard('employee')->id())->get();
+        return view('employee.home2',compact('tasks', 'periodicTasks'));
     }
 }

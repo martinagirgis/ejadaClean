@@ -97,6 +97,8 @@ class FacilitiesController extends Controller
         for ($i=0; $i < count($facility->times); $i++) { 
             $time = FacilityTimes::find($facility->times[$i]->id);
             $time->update([
+                'title' => $request['title|'.$time->id],
+                'description' => $request['description|'.$time->id],
                 'day' => $request['day|'.$time->id],
                 'time' => $request['time|'.$time->id],
                 'period' => $request['period|'.$time->id],
@@ -132,9 +134,11 @@ class FacilitiesController extends Controller
         for ($i=0; $i < intval($request->timesnum); $i++) { 
             FacilityTimes::create([
                 'day' => $request->day,
+                'title' => $request['title'.$i],
+                'description' => $request['description'.$i],
                 'time' => $request['time'.$i],
                 'period' => $request['period'.$i],
-                'type' => 'clean',
+                'type' => '1',
                 'employee_id' => $request['employee_id'.$i],
                 'facility_id' => $id,
             ]);
@@ -154,9 +158,11 @@ class FacilitiesController extends Controller
         for ($i=0; $i < intval($request->timesnum); $i++) { 
             FacilityTimes::create([
                 'day' => $request->day,
+                'title' => $request['title'.$i],
+                'description' => $request['description'.$i],
                 'time' => $request['time'.$i],
                 'period' => $request['period'.$i],
-                'type' => 'maintatance',
+                'type' => '0',
                 'employee_id' => $request['employee_id'.$i],
                 'facility_id' => $id,
             ]);

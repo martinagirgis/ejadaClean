@@ -6,7 +6,7 @@
 
         <li>
             <a href="javascript: void(0);" class="has-arrow">
-                <i class="fas fa-exclamation-triangle"></i>
+                <img src="{{asset("assets/admin/images/emp/icon1.png")}}" style="width: 25px; height: 25px;">
                 <span>   الشكاوي  </span>
             </a>
             <ul class="sub-menu" aria-expanded="false">
@@ -16,13 +16,25 @@
         </li>
         <li>
             <a href="javascript: void(0);" class="has-arrow">
-                <i class="fas fa-exclamation-triangle"></i>
-                <span>   المهام  </span>
+                <img src="{{asset("assets/admin/images/emp/icon3.png")}}" style="width: 25px; height: 25px;">
+                <span> المهام الفورية </span>
             </a>
             <ul class="sub-menu" aria-expanded="false">
-                <li><a href="{{route("taskNow",['id'=>1])}}">المهام الحالية</a></li>
-                <li><a href="{{route("taskWaiting",['id'=>1])}}">المهام قيد الانتظار</a></li>
-                <li><a href="{{route("tasDone",['id'=>1])}}">المهام المنتهية</a></li>
+                <li><a href="{{route("taskNow")}}">المهام الحالية</a></li>
+                <li><a href="{{route("taskWaiting")}}">المهام قيد الانتظار</a></li>
+                <li><a href="{{route("tasksDone")}}">المهام المنتهية</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="javascript: void(0);" class="has-arrow">
+                <img src="{{asset("assets/admin/images/emp/icon2.png")}}" style="width: 25px; height: 25px;">
+                <span> المهام الدورية </span>
+            </a>
+            <ul class="sub-menu" aria-expanded="false">
+                <li><a href="{{route("periodicTask.Now")}}">المهام الحالية</a></li>
+                <li><a href="{{route("periodicTask.Waiting")}}">المهام قيد الانتظار</a></li>
+                <li><a href="{{route("periodicTask.Done")}}">المهام المنتهية</a></li>
             </ul>
         </li>
 

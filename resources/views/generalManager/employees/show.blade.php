@@ -85,12 +85,12 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">المهمات </label>
                         <div class="col-sm-10">
                             <a class="btn btn-dark col-sm-12"  href="{{route('generalManagerEmployees.tasks',['id'=>$employee->id])}}">عرض</a>
                         </div>
-                    </div>
+                    </div> --}}
             </div>
         </div>
     </div> <!-- end col -->

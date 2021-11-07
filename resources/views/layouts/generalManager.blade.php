@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en">
-
+<?php date_default_timezone_set('Africa/Cairo'); ?>
 <head>
     <meta charset="utf-8"/>
-    <title>اسم الموقع</title>
+    <title>fix it </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @yield("styleChart")
     <!-- App favicon -->
@@ -36,10 +36,10 @@
                 <div class="navbar-brand-box">
                     <a href="#" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="{{asset("assets/admin/images/logo_small.jpg")}}" alt="" height="22">
+                            <img src="{{asset("assets/admin/images/icon.png")}}" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="{{asset("assets/admin/images/logo.jpg")}}" alt="" height="36">
+                            <img src="{{asset("assets/admin/images/logo.jpg")}}" alt="" style="width: 160px; height: 90px;">
                         </span>
                     </a>
                 </div>
@@ -50,7 +50,7 @@
                 </button>
 
                 <div class="d-none d-sm-block ml-2">
-                    <h4 class="page-title">اسم الموقع</h4>
+                    <h4 class="page-title">fix it  </h4>
                 </div>
             </div>
 

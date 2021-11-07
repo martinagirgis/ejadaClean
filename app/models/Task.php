@@ -15,8 +15,8 @@ class Task extends Model
         'period',
         'attach',
         'note',
-        'employee_id',
-        'facility_id',
+        // 'employee_id', 
+        'branch_id',
         'support_type',
         'support_id',
         'state'
@@ -31,4 +31,10 @@ class Task extends Model
     {
         return $this->belongsTo(Team::class, 'support_id');
     }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'support_id');
+    }
+
 }

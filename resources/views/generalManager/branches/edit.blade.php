@@ -17,7 +17,7 @@
                     <strong>{{ $message }}</strong>
                 </div>
                 @endif
-                <h5 class="mb-5 mt-3">تعديل المحطة </h5>
+                <h5 class="mb-5 mt-3">تعديل المنطقة </h5>
 
                 <form method="post" action="{{route('branches.update',['branch'=>$branch->id])}}">
                     @csrf

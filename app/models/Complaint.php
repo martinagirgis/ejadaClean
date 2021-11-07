@@ -11,8 +11,14 @@ class Complaint extends Model
         'title',
         'description',
         'attach',
+        'type',
         'employee_id',
-        'facility_id',
+        'branch_id',
         'state'
     ];
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'employee_id');
+    }
 }

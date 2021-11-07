@@ -24,21 +24,21 @@
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">اسم الفريق</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="name">
+                            <input class="form-control" type="text" id="example-text-input" name="name" required>
                         </div>
                     </div>
 
                     <div class="form-group row"> 
                         <label for="example-text-input" class="col-sm-2 col-form-label">المسؤول عن الفريق</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="leader_name">
+                            <input class="form-control" type="text" id="example-text-input" name="leader_name" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="example-text-input" class="col-sm-2 col-form-label">رقم هاتف المسؤول عن الفريق</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="leader_phone">
+                            <input class="form-control" type="text" id="example-text-input" name="leader_phone" required>
                         </div>
                     </div>
 
